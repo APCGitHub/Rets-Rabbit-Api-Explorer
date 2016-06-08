@@ -1,0 +1,20 @@
+{
+  "name": "rr-api-explorer",
+  "version": "1.0.0",
+  "description": "Angular project showcasing a public api explorer for the Retsrabbit API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Clinton",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-order": "^1.1.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^1.5.3"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "rr-api-explorer",
+  "description": "Angular project showcasing a public api explorer for the Retsrabbit API",
+  "main": "dist/rr-explorer-2.min.js",
+  "authors": [
+    "Andrew Clinton <aclinton@anecka.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com"
+  },
+  "keywords": [
+    "rets",
+    "reso",
+    "datadictionary",
+    "realty"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
