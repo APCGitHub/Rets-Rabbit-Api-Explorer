@@ -1,0 +1,60 @@
+<div class="row">
+	<!-- FORM -->
+	<div class="col-md-6 col-sm-4 col-xs-12">
+		<form ng-submit="search()" role="form" class="form-horizontal">
+			<!-- SELECT -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="select">$select:</label>
+				<div class="col-sm-10">
+					<input ng-repeat="select in data.searchForm.select track by $index" name="select[]" ng-model="data.searchForm.select[$index]" id="select_{{$index+1}}" value="select.value" type="text"/>
+				</div>
+			</div>
+			<!-- FILTER -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="filter">$filter:</label>
+				<div class="col-sm-10">
+					<input ng-repeat-start="filter in data.searchForm.filter track by $index" name="filter[]" ng-model="data.searchForm.filter[$index].value" id="filter_{{$index+1}}" type="text"/>
+					<input ng-repeat-end ng-if="data.searchform.filter.length > $index" ng-model="data.searchForm.filter[$index].operator">
+				</div>
+			</div>
+			<!-- ORDERBY -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="orderby">$orderby:</label>
+				<div class="col-sm-7" ng-repeat-start="orderby in data.searchForm.orderby track by $index">
+					<input name="orderby[]" ng-model="data.searchForm.orderby[$index]" id="orderby_input_{{$index+1}}" value="orderby.value" type="text"/>
+				</div>
+				<div class="col-sm-3" ng-repeat-end>
+					<select ng-model="data.searchForm.orderby[$index].direction">
+						<option value="asc" selected>asc</option>
+						<option value="desc">desc</option>
+					</select>
+				</div>
+			</div>
+			<!-- TOP -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="top">$top:</label>
+				<div class="col-sm-10">
+					<input name="top" id="top" type="text"/>
+				</div>
+			</div>
+			<!-- SKIP -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="skip">$skip:</label>
+				<div class="col-sm-10">
+					<input name="skip" id="skip" type="text"/>
+				</div>
+			</div>
+			<button type="submit" value="search">Search</button>
+		</form>
+	</div>
+	<!-- QUERY -->
+	<div class="col-md-6 col-sm-4 col-xs-12">
+		<h3>Request</h3>
+		<code>{{data.request}}</code>
+	</div>
+	<!-- RESULTS -->
+	<div class="col-md-12 col-sm-4 col-xs-12">
+		<h3 class="text-center">Results</h3>
+		{{results | json}}
+	</div>
+</div>
