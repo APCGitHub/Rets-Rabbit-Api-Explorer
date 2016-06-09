@@ -33,7 +33,6 @@
 
             /* --- Bind Method Handles --- */
             vm.search = _search;
-            vm.addSelect = _addSelect;
             vm.addFilter = _addFilter;
             vm.removeFilter = _removeFilter;
             vm.addOrderby = _addOrderby;
