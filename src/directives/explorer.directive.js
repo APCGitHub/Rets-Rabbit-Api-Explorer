@@ -29,7 +29,7 @@
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
-                results: [],
+                results: null,
                 error: null
             };
 
