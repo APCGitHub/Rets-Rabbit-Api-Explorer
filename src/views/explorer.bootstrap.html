@@ -6,25 +6,25 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="select">$select:</label>
 				<div class="col-sm-10">
-					<input class="form-control" ng-repeat="select in data.searchForm.select track by $index" name="select[]" ng-model="data.searchForm.select[$index]" id="select_{{$index+1}}" value="select.value" type="text"/>
+					<input class="form-control" ng-repeat="select in vm.data.searchForm.select track by $index" name="select[]" ng-model="vm.data.searchForm.select[$index]" id="select_{{$index+1}}" value="select.value" type="text"/>
 				</div>
 			</div>
 			<!-- FILTER -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="filter">$filter:</label>
 				<div class="col-sm-10">
-					<input ng-repeat-start="filter in data.searchForm.filter track by $index" name="filter[]" class="form-control" ng-model="data.searchForm.filter[$index].value" id="filter_{{$index+1}}" type="text"/>
-					<input ng-repeat-end class="form-control" ng-if="data.searchform.filter.length > $index" ng-model="data.searchForm.filter[$index].operator">
+					<input ng-repeat-start="filter in vm.data.searchForm.filter track by $index" name="filter[]" class="form-control" ng-model="vm.data.searchForm.filter[$index].value" id="filter_{{$index+1}}" type="text"/>
+					<input ng-repeat-end class="form-control" ng-if="vm.data.searchform.filter.length > $index" ng-model="vm.data.searchForm.filter[$index].operator">
 				</div>
 			</div>
 			<!-- ORDERBY -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="orderby">$orderby:</label>
-				<div class="col-sm-7" ng-repeat-start="orderby in data.searchForm.orderby track by $index">
-					<input name="orderby[]" ng-model="data.searchForm.orderby[$index]" id="orderby_input_{{$index+1}}" class="form-control" value="orderby.value" type="text"/>
+				<div class="col-sm-7" ng-repeat-start="orderby in vm.data.searchForm.orderby track by $index">
+					<input name="orderby[]" ng-model="vm.data.searchForm.orderby[$index]" id="orderby_input_{{$index+1}}" class="form-control" value="orderby.value" type="text"/>
 				</div>
 				<div class="col-sm-3" ng-repeat-end>
-					<select ng-model="data.searchForm.orderby[$index].direction" class="form-control">
+					<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control">
 						<option value="asc" selected>asc</option>
 						<option value="desc">desc</option>
 					</select>
@@ -50,11 +50,11 @@
 	<!-- QUERY -->
 	<div class="col-md-6 col-sm-4 col-xs-12">
 		<h3>Request</h3>
-		<code>{{data.request}}</code>
+		<code>{{vm.data.request}}</code>
 	</div>
 	<!-- RESULTS -->
 	<div class="col-md-12 col-sm-4 col-xs-12">
 		<h3 class="text-center">Results</h3>
-		{{data.results | json}}
+		{{vm.data.results | json}}
 	</div>
 </div>

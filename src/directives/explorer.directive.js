@@ -1,133 +1,139 @@
-(function () {
-	'use strict';
-	angular
-		.module('rr.api.v2.explorer.directive.explorer', [])
-		.directive('apiExplorer', Directive);
+(function() {
+    'use strict';
+    angular
+        .module('rr.api.v2.explorer.directive.explorer', [])
+        .directive('apiExplorer', Directive);
 
-	Directive.$inject = ['PropertyFactory'];
+    Directive.$inject = ['PropertyFactory'];
 
-	function Directive(PropertyFactory) {
-		return {
-			restrict: 'EA',
-			scope: {},
-			templateUrl: 'explorer.bootstrap.html',
-			link: function (scope, element, attrs) {},
-			controller: function ($scope){
-				$scope.data = {
-					searchForm: {
-						select: [{value:''}],
-						filter: [{value:'', operator: ''}],
-						orderby: [{value:'', direction: 'asc'}],
-						top: '',
-						skip: ''
-					},
-					request: '',
-					results: []
-				};
+    function Directive(PropertyFactory) {
+        return {
+            restrict: 'EA',
+            scope: {},
+            templateUrl: 'explorer.bootstrap.html',
+            link: function(scope, element, attrs) {},
+            controller: _controller,
+            controllerAs: 'vm',
+            bindToController: true
+        };
 
-				/* --- Bind Method Handles --- */
-				$scope.search = _search;
-				$scope.addSelect = _addSelect;
-				$scope.addFilter = _addFilter;
-				$scope.addOrderby = _addOrderby;
+        function _controller($scope) {
+        	var vm = this;
 
-				//We have to update the formatted request panel
-				$scope.watchCollection('data.searchForm.select', _updateRequest);
-				$scope.watchCollection('data.searchForm.filter', _updateRequest);
-				$scope.watchCollection('data.searchForm.orderby', _updateRequest);
-				$scope.watch('data.searchForm.top', _updateRequest);
-				$scope.watch('data.searchForm.skip', _updateRequest);
+            vm.data = {
+                searchForm: {
+                    select: [{ value: '' }],
+                    filter: [{ value: '', operator: '' }],
+                    orderby: [{ value: '', direction: 'asc' }],
+                    top: '',
+                    skip: ''
+                },
+                request: '',
+                results: []
+            };
+
+            /* --- Bind Method Handles --- */
+            vm.search = _search;
+            vm.addSelect = _addSelect;
+            vm.addFilter = _addFilter;
+            vm.addOrderby = _addOrderby;
+
+            //We have to update the formatted request panel
+            vm.watchCollection('data.searchForm.select', _updateRequest);
+            vm.watchCollection('data.searchForm.filter', _updateRequest);
+            vm.watchCollection('data.searchForm.orderby', _updateRequest);
+            vm.watch('data.searchForm.top', _updateRequest);
+            vm.watch('data.searchForm.skip', _updateRequest);
 
 
-				/* --- Methods --- */
-				function _search() {
+            /* --- Methods --- */
+            function _search() {
 
-				}
+            }
 
-				function _addSelect() {
-					$scope.data.searchForm.select.push({
-						value: ''
-					});
-				}
+            function _addSelect() {
+                vm.data.searchForm.select.push({
+                    value: ''
+                });
+            }
 
-				function _addFilter() {
-					$scope.data.searchForm.filter.push({
-						value: ''
-					});
-				}
+            function _addFilter() {
+                vm.data.searchForm.filter.push({
+                    value: ''
+                });
+            }
 
-				function _addOrderby() {
-					$scope.data.searchForm.orderby.push({
-						value: ''
-					});
-				}
+            function _addOrderby() {
+                vm.data.searchForm.orderby.push({
+                    value: ''
+                });
+            }
 
-				function _updateRequestComplex(newVal, oldVal) {
-					if(newVal != oldVal){
-						_buildQuery();
-					}
-				}
+            function _updateRequestComplex(newVal, oldVal) {
+                if (newVal != oldVal) {
+                    _buildQuery();
+                }
+            }
 
-				/**
-				 * This method handles building the query string based on the selected
-				 * parameters
-				 * 
-				 * @return void
-				 */
-				function _buildQuery(){
-					var _q = Constants.v2.apiUrl + 'property?';
-					var i = 0;
-					var filter_array = [];
+            /**
+             * This method handles building the query string based on the selected
+             * parameters
+             * 
+             * @return void
+             */
+            function _buildQuery() {
+                var _q = Constants.v2.apiUrl + 'property?';
+                var i = 0;
+                var filter_array = [];
 
-					//select
-					if($scope.data.searchForm.select.length)
-						_q += '$select=';
+                //select
+                if (vm.data.searchForm.select.length)
+                    _q += '$select=';
 
-					_q += $scope.data.searchForm.select.map(function (select) {
-						return select.value
-					}).join(', ');
+                _q += vm.data.searchForm.select.map(function(select) {
+                    return select.value
+                }).join(', ');
 
-					//filter
-					if($scope.data.searchForm.filter.length)
-						if($scope.data.searchForm.select.length)
-							_q += '&$filter=';
-						else
-							_q += '$filter=';
+                //filter
+                if (vm.data.searchForm.filter.length)
+                    if (vm.data.searchForm.select.length)
+                        _q += '&$filter=';
+                    else
+                        _q += '$filter=';
 
-					filter_array = $scope.data.searchForm.filter.map(function (filter) {
-						return filter.value
-					});
+                filter_array = vm.data.searchForm.filter.map(function(filter) {
+                    return filter.value
+                });
 
-					for(var i = 0; i < $scope.data.searchForm.filter.length; i++){
-						_q += filter_array[i];
+                for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
+                    _q += filter_array[i];
 
-						if($scope.data.searchForm.filter[i].operator != '')
-							_q += ' ' + $scope.data.searchForm.filter[i].operator;
+                    if (vm.data.searchForm.filter[i].operator != '')
+                        _q += ' ' + vm.data.searchForm.filter[i].operator;
 
-						if(i + 1 < $scope.data.searchForm.filter.length)
-							_q += ' ';
-					}
+                    if (i + 1 < vm.data.searchForm.filter.length)
+                        _q += ' ';
+                }
 
-					//orderby
-					if($scope.data.searchForm.orderby.length)
-						if($scope.data.searchForm.select.length && $scope.data.searchForm.filter.length)
-							_q += '&$filter=';
-						else
-							_q += '$filter=';
+                //orderby
+                if (vm.data.searchForm.orderby.length)
+                    if (vm.data.searchForm.select.length && vm.data.searchForm.filter.length)
+                        _q += '&$filter=';
+                    else
+                        _q += '$filter=';
 
-					_q += $scope.data.searchForm.orderby.map(function (orderby) {
-						return orderby.value + ' ' + orderby.direction
-					}).join(', ');
+                _q += vm.data.searchForm.orderby.map(function(orderby) {
+                    return orderby.value + ' ' + orderby.direction
+                }).join(', ');
 
-					//top
-					if($scope.data.searchForm.top != '')
-						_q += '$top=' + $scope.data.searchForm.top;
+                //top
+                if (vm.data.searchForm.top != '')
+                    _q += '$top=' + vm.data.searchForm.top;
 
-					//skip
-					if($scope.data.searchForm.skip != '')
-						_q += '$skip=' + $scope.data.searchForm.skip;
-				}
-			}
-		};
-	}
+                //skip
+                if (vm.data.searchForm.skip != '')
+                    _q += '$skip=' + vm.data.searchForm.skip;
+            }
+        }
+    }
 })();
