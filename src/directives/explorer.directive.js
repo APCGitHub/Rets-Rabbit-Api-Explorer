@@ -48,12 +48,15 @@
                 vm.data.total_results = -1;
                 vm.data.error = null;
                 vm.data.results = null;
-                
+                vm.data.searching = true;
+
             	PropertyFactory.search(vm.data.request).then(function (res){
             		vm.data.error = null;
             		vm.data.results = res;
                     vm.data.total_results = res.value.length;
+                    vm.data.searching = false;
             	}, function (err) {
+                    vm.data.searching = false;
             		vm.data.error = err.error;
             	});
             }
