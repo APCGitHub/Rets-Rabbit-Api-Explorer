@@ -9,7 +9,7 @@
     function Filter() {
         return function(json) {
             if (typeof json !== 'string') {
-                json = JSON.stringify(json, undefined, 2);
+                json = JSON.stringify(json, undefined, 4);
             }
 
             json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

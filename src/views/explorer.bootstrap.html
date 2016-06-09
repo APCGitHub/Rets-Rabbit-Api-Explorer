@@ -76,7 +76,7 @@
 					</div>
 				</div>
 				<!-- ADD ORDERBY -->
-				<div class="col-sm-4 col-sm-offset-4 text-center" style="margin-top:20px">
+				<div class="col-sm-4 col-sm-offset-4 text-center">
 					<button type="button" class="btn btn-success" ng-click="vm.addOrderby()">Add Orderby</button>
 				</div>
 			</div>
@@ -108,8 +108,7 @@
 	<div class="col-md-12 col-sm-4 col-xs-12">
 		<h3 class="text-center">Results</h3>
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
-			<pre ng-bind-html>
-				{{vm.data.results | prettyJson}}
+			<pre ng-bind-html="vm.data.results | prettyJson">
 			</pre>
 		</div>
 		<div class="error" ng-if="vm.data.error">
