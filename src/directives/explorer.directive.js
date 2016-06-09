@@ -27,7 +27,7 @@
                     top: '',
                     skip: ''
                 },
-                request: '',
+                request: ApiConfig.apiUrl + 'property?',
                 results: []
             };
 
@@ -71,7 +71,7 @@
              */
             function _buildQuery() {
             	console.log('building the query');
-                var _q = ApiConfig.apiUrl + 'property?';
+                var _q = '';
                 var i = 0;
                 var filter_array = [];
 
