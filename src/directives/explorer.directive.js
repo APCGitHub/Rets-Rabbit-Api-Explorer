@@ -116,7 +116,7 @@
                 for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
                     if(vm.data.searchForm.filter[i].value === '')
                         continue;
-                    
+
                     _q += filter_array[i];
 
                     if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length){
@@ -128,7 +128,7 @@
                 }
 
                 //orderby
-                if (vm.data.searchForm.orderby.length)
+                if (vm.data.searchForm.orderby.length && vm.data.searchForm.orderby[0].value !== '')
                     if (vm.data.searchForm.select !== '' && vm.data.searchForm.filter.length)
                         _q += '&$orderby=';
                     else
