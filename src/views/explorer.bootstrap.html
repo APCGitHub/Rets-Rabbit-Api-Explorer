@@ -106,7 +106,7 @@
 		</code>
 	</div>
 	<!-- RESULTS -->
-	<div class="col-md-12 col-sm-4 col-xs-12">
+	<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
 		<h3 class="text-center">Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span></h3>
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
 			<pre>{{vm.data.results | prettyJson}}</pre>
