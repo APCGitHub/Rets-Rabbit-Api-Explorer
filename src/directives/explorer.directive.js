@@ -68,6 +68,7 @@
              * @return void
              */
             function _buildQuery() {
+            	console.log('building the query');
                 var _q = ApiConfig.apiUrl + 'property?';
                 var i = 0;
                 var filter_array = [];
@@ -119,6 +120,8 @@
                 //skip
                 if (vm.data.searchForm.skip != '')
                     _q += '$skip=' + vm.data.searchForm.skip;
+
+                vm.data.request = _q;
             }
         }
     }
