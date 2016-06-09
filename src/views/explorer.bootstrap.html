@@ -26,7 +26,7 @@
 						</div>
 						<!-- REMOVE FILTER -->
 						<div class="col-sm-2">
-							<button type="button" ng-if="$index > 0" class="btn btn-danger" ng-click="vm.removeFilter(filter)"><i class="fa fa-trash-o"></i></button>
+							<button type="button" ng-disabled="$index > 0" class="btn btn-danger" ng-click="vm.removeFilter(filter)"><i class="fa fa-trash-o"></i></button>
 						</div>
 					</div>
 					<!-- JOIN: AND | OR -->
@@ -71,7 +71,7 @@
 						</div>
 						<!-- REMOVE FILTER -->
 						<div class="col-sm-1">
-							<button type="button" ng-if="$index > 0" class="btn btn-danger" ng-click="vm.removeOrderby(orderby)"><i class="fa fa-trash-o"></i></button>
+							<button type="button" ng-disabled="$index > 0" class="btn btn-danger" ng-click="vm.removeOrderby(orderby)"><i class="fa fa-trash-o"></i></button>
 						</div>
 					</div>
 				</div>
@@ -108,14 +108,10 @@
 	<div class="col-md-12 col-sm-4 col-xs-12">
 		<h3 class="text-center">Results</h3>
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
-			<pre>
-				{{vm.data.results | prettyJson}}
-			</pre>
+			<pre>{{vm.data.results | prettyJson}}</pre>
 		</div>
 		<div class="error" ng-if="vm.data.error">
-			<pre>
-				{{vm.data.error | prettyJson}}
-			</pre>
+			<pre>{{vm.data.error | prettyJson}}</pre>
 		</div>
 	</div>
 </div>
