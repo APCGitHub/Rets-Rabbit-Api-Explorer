@@ -4,9 +4,9 @@
         .module('rr.api.v2.explorer.directive.explorer', [])
         .directive('apiExplorer', Directive);
 
-    Directive.$inject = ['PropertyFactory'];
+    Directive.$inject = [];
 
-    function Directive(PropertyFactory) {
+    function Directive() {
         return {
             restrict: 'EA',
             scope: {},
