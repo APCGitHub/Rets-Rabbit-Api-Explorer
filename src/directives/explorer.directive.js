@@ -30,6 +30,7 @@
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
                 results: null,
+                total_results: -1,
                 error: null
             };
 
@@ -43,9 +44,11 @@
 
             /* --- Methods --- */
             function _search() {
+                vm.data.total_results = -1;
             	PropertyFactory.search(vm.data.request).then(function (res){
             		vm.data.error = null;
             		vm.data.results = res;
+                    vm.data.total_results = res.value.length;
             	}, function (err) {
             		vm.data.error = err.error;
             	});
