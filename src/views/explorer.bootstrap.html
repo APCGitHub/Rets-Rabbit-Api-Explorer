@@ -52,7 +52,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="orderby">$orderby:</label>
 				<div class="col-sm-10">
-					<div class="row" ng-repeat="orderby in vm.data.searchForm.orderby track by $index">
+					<div style="margin-bottom:15px" class="row" ng-repeat="orderby in vm.data.searchForm.orderby track by $index">
 						<div class="col-sm-8">
 							<input 
 								name="orderby[]" 
@@ -113,8 +113,7 @@
 			</pre>
 		</div>
 		<div class="error" ng-if="vm.data.error">
-			<pre ng-bind-html>
-				{{vm.data.error | prettyJson}}
+			<pre ng-bind-html="vm.data.error | prettyJson">
 			</pre>
 		</div>
 	</div>
