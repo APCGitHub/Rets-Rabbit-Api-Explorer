@@ -73,6 +73,7 @@
             function _removeFilter(filter){
             	var i = vm.data.searchForm.filter.indexOf(filter);
             	vm.data.searchForm.filter.splice(i, 1);
+                _buildQuery();
             }
 
             function _addOrderby() {
@@ -85,6 +86,7 @@
             function _removeOrderby(orderby){
             	var i = vm.data.searchForm.orderby.indexOf(orderby);
             	vm.data.searchForm.orderby.splice(i, 1);
+                _buildQuery();
             }
 
             /**
