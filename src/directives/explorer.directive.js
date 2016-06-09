@@ -31,7 +31,8 @@
                 request: '',
                 results: null,
                 total_results: -1,
-                error: null
+                error: null,
+                searching: false
             };
 
             /* --- Bind Method Handles --- */
@@ -45,6 +46,9 @@
             /* --- Methods --- */
             function _search() {
                 vm.data.total_results = -1;
+                vm.data.error = null;
+                vm.data.results = null;
+                
             	PropertyFactory.search(vm.data.request).then(function (res){
             		vm.data.error = null;
             		vm.data.results = res;

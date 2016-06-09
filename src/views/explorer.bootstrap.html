@@ -92,7 +92,10 @@
 					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary" value="search">Search</button>
+			<button type="submit" class="btn btn-primary" ng-disabled="vm.data.searching" value="search">
+				<span ng-if="!vm.data.searching">Search</span>
+				<span ng-if="vm.data.searching">Searching...</span>
+			</button>
 		</form>
 	</div>
 	<!-- QUERY -->
