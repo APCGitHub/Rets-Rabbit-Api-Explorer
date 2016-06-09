@@ -29,7 +29,8 @@
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
-                results: []
+                results: [],
+                error: null
             };
 
             /* --- Bind Method Handles --- */
@@ -42,9 +43,10 @@
             /* --- Methods --- */
             function _search() {
             	PropertyFactory.search(vm.data.request).then(function (res){
+            		vm.data.error = null;
             		vm.data.results = res;
             	}, function (err) {
-            		console.log(err);
+            		vm.data.error = err.error;
             	});
             }
 

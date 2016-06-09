@@ -95,6 +95,11 @@
 	<!-- RESULTS -->
 	<div class="col-md-12 col-sm-4 col-xs-12">
 		<h3 class="text-center">Results</h3>
-		{{vm.data.results | json}}
+		<div class="results" ng-if="vm.data.results && !vm.data.error">
+			{{vm.data.results | json}}
+		</div>
+		<div class="error" ng-if="vm.data.error">
+			{{vm.data.error | json}}
+		</div>
 	</div>
 </div>
