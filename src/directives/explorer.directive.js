@@ -11,26 +11,25 @@
             restrict: 'EA',
             scope: {},
             templateUrl: 'explorer.bootstrap.html',
-            link: function(scope, element, attrs) {},
             controller: _controller,
             controllerAs: 'vm',
             bindToController: true
         };
 
-        function _controller($scope) {
+        function _controller() {
         	var vm = this;
 
-            // vm.data = {
-            //     searchForm: {
-            //         select: [{ value: '' }],
-            //         filter: [{ value: '', operator: '' }],
-            //         orderby: [{ value: '', direction: 'asc' }],
-            //         top: '',
-            //         skip: ''
-            //     },
-            //     request: '',
-            //     results: []
-            // };
+            vm.data = {
+                searchForm: {
+                    select: [{ value: '' }],
+                    filter: [{ value: '', operator: '' }],
+                    orderby: [{ value: '', direction: 'asc' }],
+                    top: '',
+                    skip: ''
+                },
+                request: '',
+                results: []
+            };
 
             // /* --- Bind Method Handles --- */
             // vm.search = _search;
