@@ -1,27 +1,38 @@
 <div class="row">
 	<!-- FORM -->
 	<div class="col-md-6 col-sm-4 col-xs-12">
+		<h3>Build Query</h3>
 		<form ng-submit="vm.search()" role="form" class="form-horizontal">
 			<!-- SELECT -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="select">$select:</label>
 				<div class="col-sm-10">
-					<input class="form-control" ng-change="vm.updateQuery()" ng-repeat="select in vm.data.searchForm.select track by $index" name="select[]" ng-model="vm.data.searchForm.select[$index].value" id="select_{{$index+1}}" value="select.value" type="text"/>
+					<input class="form-control" ng-change="vm.updateQuery()" name="select" ng-model="vm.data.searchForm.select" id="select" type="text"/>
 				</div>
 			</div>
 			<!-- FILTER -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="filter">$filter:</label>
-				<div class="col-sm-10">
-					<input 
-						ng-repeat-start="filter in vm.data.searchForm.filter track by $index" 
-						ng-change="vm.updateQuery()" 
-						name="filter[]" 
-						class="form-control" 
-						ng-model="vm.data.searchForm.filter[$index].value" 
-						id="filter_{{$index+1}}" 
-						type="text"/>
-					<input ng-repeat-end ng-change="vm.updateQuery()" class="form-control" ng-if="vm.data.searchform.filter.length > $index" ng-model="vm.data.searchForm.filter[$index].operator">
+				<div class="col-sm-7" ng-repeat-start="filter in vm.data.searchForm.filter track by $index">
+					<div class="row">
+						<div class="col-sm-12">
+							<input  
+								ng-change="vm.updateQuery()" 
+								name="filter[]" 
+								class="form-control" 
+								ng-model="vm.data.searchForm.filter[$index].value" 
+								id="filter_{{$index+1}}" 
+								type="text"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 text-center">
+							<input ng-repeat-end ng-change="vm.updateQuery()" class="form-control" ng-if="vm.data.searchform.filter.length > $index" ng-model="vm.data.searchForm.filter[$index].operator">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3" ng-repeat-end>
+					<button class="btn btn-danger" ng-click="vm.removeFilter(filter)"><i class="fa fa-trash-o"></i></button>
 				</div>
 			</div>
 			<!-- ORDERBY -->
@@ -58,13 +69,17 @@
 					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
-			<button type="submit" value="search">Search</button>
+			<button type="submit" class="btn btn-primary" value="search">Search</button>
 		</form>
 	</div>
 	<!-- QUERY -->
 	<div class="col-md-6 col-sm-4 col-xs-12">
 		<h3>Request</h3>
-		<code>{{vm.data.request}}</code>
+		<code>
+			<div class="row">
+				<div class="col-sm-12">{{vm.data.request}}</div>
+			</div>
+		</code>
 	</div>
 	<!-- RESULTS -->
 	<div class="col-md-12 col-sm-4 col-xs-12">

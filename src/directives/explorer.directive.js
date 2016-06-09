@@ -21,7 +21,7 @@
 
             vm.data = {
                 searchForm: {
-                    select: [{ value: '' }],
+                    select: '',
                     filter: [{ value: '', operator: '' }],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
@@ -35,6 +35,7 @@
             vm.search = _search;
             vm.addSelect = _addSelect;
             vm.addFilter = _addFilter;
+            vm.removeFilter = _removeFilter;
             vm.addOrderby = _addOrderby;
             vm.updateQuery = _buildQuery;
 
@@ -49,10 +50,16 @@
                 });
             }
 
+
             function _addFilter() {
                 vm.data.searchForm.filter.push({
                     value: ''
                 });
+            }
+
+            function _removeFilter(filter){
+            	var i = vm.data.searchForm.filter.indexOf(filter);
+            	vm.data.searchForm.filter.splice(i, 1);
             }
 
             function _addOrderby() {
@@ -74,16 +81,12 @@
                 var filter_array = [];
 
                 //select
-                if (vm.data.searchForm.select.length)
-                    _q += '$select=';
-
-                _q += vm.data.searchForm.select.map(function(select) {
-                    return select.value
-                }).join(', ');
+                 if (vm.data.searchForm.select !== '')
+                    _q += '$select=' + vm.data.searchForm.select;
 
                 //filter
                 if (vm.data.searchForm.filter.length)
-                    if (vm.data.searchForm.select.length)
+                    if (vm.data.searchForm.select !== '')
                         _q += '&$filter=';
                     else
                         _q += '$filter=';
@@ -95,7 +98,7 @@
                 for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
                     _q += filter_array[i];
 
-                    if (vm.data.searchForm.filter[i].operator != '')
+                    if (vm.data.searchForm.filter[i].value != '')
                         _q += ' ' + vm.data.searchForm.filter[i].operator;
 
                     if (i + 1 < vm.data.searchForm.filter.length)
@@ -104,10 +107,10 @@
 
                 //orderby
                 if (vm.data.searchForm.orderby.length)
-                    if (vm.data.searchForm.select.length && vm.data.searchForm.filter.length)
-                        _q += '&$filter=';
+                    if (vm.data.searchForm.select !== '' && vm.data.searchForm.filter.length)
+                        _q += '&$ordery=';
                     else
-                        _q += '$filter=';
+                        _q += '$orderby=';
 
                 _q += vm.data.searchForm.orderby.map(function(orderby) {
                     return orderby.value + ' ' + orderby.direction
