@@ -51,21 +51,33 @@
 			<!-- ORDERBY -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="orderby">$orderby:</label>
-				<div class="col-sm-7" ng-repeat-start="orderby in vm.data.searchForm.orderby track by $index">
-					<input 
-						name="orderby[]" 
-						ng-model="vm.data.searchForm.orderby[$index].value" 
-						id="orderby_input_{{$index+1}}" 
-						class="form-control" 
-						value="orderby.value"
-						ng-change="vm.updateQuery()"
-						type="text"/>
+				<div class="col-sm-10">
+					<div class="row" ng-repeat-start="orderby in vm.data.searchForm.orderby track by $index">
+						<div class="col-sm-8">
+							<input 
+								name="orderby[]" 
+								ng-model="vm.data.searchForm.orderby[$index].value" 
+								id="orderby_input_{{$index+1}}" 
+								class="form-control" 
+								value="orderby.value"
+								ng-change="vm.updateQuery()"
+								type="text"/>	
+						</div>
+						<div class="col-sm-3">
+							<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
+								<option value="asc" selected>asc</option>
+								<option value="desc">desc</option>
+							</select>
+						</div>
+						<!-- REMOVE FILTER -->
+						<div class="col-sm-1">
+							<button type="button" ng-if="$index > 0" class="btn btn-danger" ng-click="vm.removeOrderby(orderby)"><i class="fa fa-trash-o"></i></button>
+						</div>
+					</div>
 				</div>
-				<div class="col-sm-3" ng-repeat-end>
-					<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
-						<option value="asc" selected>asc</option>
-						<option value="desc">desc</option>
-					</select>
+				<!-- ADD ORDERBY -->
+				<div class="col-sm-4 col-sm-offset-4 text-center" style="margin-top:20px">
+					<button type="button" class="btn btn-success" ng-click="vm.addOrderby()">Add Orderby</button>
 				</div>
 			</div>
 			<!-- TOP -->

@@ -38,6 +38,7 @@
             vm.addFilter = _addFilter;
             vm.removeFilter = _removeFilter;
             vm.addOrderby = _addOrderby;
+            vm.removeOrderby = _removeOrderby;
             vm.updateQuery = _buildQuery;
 
             /* --- Methods --- */
@@ -66,8 +67,14 @@
 
             function _addOrderby() {
                 vm.data.searchForm.orderby.push({
-                    value: ''
+                    value: '',
+                    direction: 'asc'
                 });
+            }
+
+            function _removeOrderby(orderby){
+            	var i = vm.data.searchForm.orderby.indexOf(orderby);
+            	vm.data.searchForm.orderby.splice(i, 1);
             }
 
             /**
