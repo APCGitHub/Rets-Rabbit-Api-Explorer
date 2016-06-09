@@ -68,7 +68,7 @@
                 });
             }
 
-            function _updateRequestComplex(newVal, oldVal) {
+            function _updateRequest(newVal, oldVal) {
                 if (newVal != oldVal) {
                     _buildQuery();
                 }
