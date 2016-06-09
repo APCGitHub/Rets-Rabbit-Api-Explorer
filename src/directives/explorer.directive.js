@@ -4,9 +4,9 @@
         .module('rr.api.v2.explorer.directive.explorer', [])
         .directive('apiExplorer', Directive);
 
-    Directive.$inject = ['ApiConfig'];
+    Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
-    function Directive(ApiConfig) {
+    function Directive(ApiConfig, PropertyFactory) {
         return {
             restrict: 'EA',
             scope: {},
@@ -27,7 +27,8 @@
                     top: '',
                     skip: ''
                 },
-                request: ApiConfig.apiUrl + 'property?',
+                fullRequest: ApiConfig.apiUrl + 'property?',
+                request: '',
                 results: []
             };
 
@@ -40,7 +41,11 @@
 
             /* --- Methods --- */
             function _search() {
-
+            	PropertyFactory.search(vm.data.request).then(function (res){
+            		vm.data.results = res;
+            	}, function (err) {
+            		console.log(err);
+            	});
             }
 
 
@@ -70,7 +75,6 @@
              * @return void
              */
             function _buildQuery() {
-            	console.log('building the query');
                 var _q = '';
                 var i = 0;
                 var filter_array = [];
@@ -123,6 +127,7 @@
                 if (vm.data.searchForm.skip != '')
                     _q += '$skip=' + vm.data.searchForm.skip;
 
+                vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
         }
