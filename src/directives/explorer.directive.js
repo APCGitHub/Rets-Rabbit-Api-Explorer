@@ -104,7 +104,7 @@
                 //orderby
                 if (vm.data.searchForm.orderby.length)
                     if (vm.data.searchForm.select !== '' && vm.data.searchForm.filter.length)
-                        _q += '&$ordery=';
+                        _q += '&$orderby=';
                     else
                         _q += '$orderby=';
 
