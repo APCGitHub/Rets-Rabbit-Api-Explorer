@@ -108,11 +108,13 @@
 	<div class="col-md-12 col-sm-4 col-xs-12">
 		<h3 class="text-center">Results</h3>
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
-			<pre ng-bind-html="vm.data.results | prettyJson">
+			<pre>
+				{{vm.data.results | prettyJson}}
 			</pre>
 		</div>
 		<div class="error" ng-if="vm.data.error">
-			<pre ng-bind-html="vm.data.error | prettyJson">
+			<pre>
+				{{vm.data.error | prettyJson}}
 			</pre>
 		</div>
 	</div>
