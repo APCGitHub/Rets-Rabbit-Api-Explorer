@@ -123,11 +123,11 @@
 
                 //top
                 if (vm.data.searchForm.top != '')
-                    _q += '$top=' + vm.data.searchForm.top;
+                    _q += '&$top=' + vm.data.searchForm.top;
 
                 //skip
                 if (vm.data.searchForm.skip != '')
-                    _q += '$skip=' + vm.data.searchForm.skip;
+                    _q += '&$skip=' + vm.data.searchForm.skip;
 
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
