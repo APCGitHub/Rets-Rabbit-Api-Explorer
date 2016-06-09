@@ -93,8 +93,9 @@
                 for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
                     _q += filter_array[i];
 
-                    if (vm.data.searchForm.filter[i].value != '')
+                    if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length){
                         _q += ' ' + vm.data.searchForm.filter[i].join;
+                    }
 
                     if (i + 1 < vm.data.searchForm.filter.length)
                         _q += ' ';
@@ -108,7 +109,10 @@
                         _q += '$orderby=';
 
                 _q += vm.data.searchForm.orderby.map(function(orderby) {
-                    return orderby.value + ' ' + orderby.direction
+                	if(orderby.value !== '')
+                    	return orderby.value + ' ' + orderby.direction;
+                    else
+                    	return '';
                 }).join(', ');
 
                 //top
