@@ -36,14 +36,7 @@
             vm.addSelect = _addSelect;
             vm.addFilter = _addFilter;
             vm.addOrderby = _addOrderby;
-
-            //We have to update the formatted request panel
-            vm.watchCollection('data.searchForm.select', _updateRequest);
-            vm.watchCollection('data.searchForm.filter', _updateRequest);
-            vm.watchCollection('data.searchForm.orderby', _updateRequest);
-            vm.watch('data.searchForm.top', _updateRequest);
-            vm.watch('data.searchForm.skip', _updateRequest);
-
+            vm.updateQuery = _buildQuery;
 
             /* --- Methods --- */
             function _search() {
@@ -66,12 +59,6 @@
                 vm.data.searchForm.orderby.push({
                     value: ''
                 });
-            }
-
-            function _updateRequest(newVal, oldVal) {
-                if (newVal != oldVal) {
-                    _buildQuery();
-                }
             }
 
             /**
