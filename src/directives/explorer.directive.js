@@ -103,7 +103,7 @@
                     _q += '$select=' + vm.data.searchForm.select;
 
                 //filter
-                if (vm.data.searchForm.filter.length && vam.data.searchForm.filter[0].value !== '')
+                if (vm.data.searchForm.filter.length && vm.data.searchForm.filter[0].value !== '')
                     if (vm.data.searchForm.select !== '')
                         _q += '&$filter=';
                     else
@@ -113,7 +113,10 @@
                     return filter.value
                 });
 
-                for (var i = 0; i < vm.data.searchForm.filter.length && vm.data.searchForm.filter[0].value !== ''; i++) {
+                for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
+                    if(vm.data.searchForm.filter[i].value === '')
+                        continue;
+                    
                     _q += filter_array[i];
 
                     if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length){
