@@ -22,7 +22,7 @@
             vm.data = {
                 searchForm: {
                     select: '',
-                    filter: [{ value: '', operator: '' }],
+                    filter: [{ value: '', operator: '', join: 'and'}],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
                     skip: ''
@@ -43,16 +43,12 @@
 
             }
 
-            function _addSelect() {
-                vm.data.searchForm.select.push({
-                    value: ''
-                });
-            }
-
 
             function _addFilter() {
                 vm.data.searchForm.filter.push({
-                    value: ''
+                    value: '',
+                    operator: '',
+                    join: 'and'
                 });
             }
 
@@ -98,7 +94,7 @@
                     _q += filter_array[i];
 
                     if (vm.data.searchForm.filter[i].value != '')
-                        _q += ' ' + vm.data.searchForm.filter[i].operator;
+                        _q += ' ' + vm.data.searchForm.filter[i].join;
 
                     if (i + 1 < vm.data.searchForm.filter.length)
                         _q += ' ';

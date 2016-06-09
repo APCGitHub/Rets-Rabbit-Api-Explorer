@@ -29,15 +29,18 @@
 							<button class="btn btn-danger" ng-click="vm.removeFilter(filter)"><i class="fa fa-trash-o"></i></button>
 						</div>
 					</div>
-					<!-- OPERATOR -->
-					<div class="row" ng-repeat-end>
-						<div class="col-sm-6 col-sm-offset-3 text-center">
-							<input ng-change="vm.updateQuery()" class="form-control" ng-if="vm.data.searchform.filter.length > $index" ng-model="vm.data.searchForm.filter[$index].operator">
+					<!-- JOIN: AND | OR -->
+					<div class="row" ng-repeat-end ng-if="$index + 1 < vm.data.searchForm.filter.length">
+						<div class="col-sm-4 col-sm-offset-4 text-center">
+							<select ng-model="vm.data.searchForm.filter[$index].join" class="form-control" ng-change="vm.updateQuery()">
+								<option value="and" selected>and</option>
+								<option value="or">or</option>
+							</select>
 						</div>
 					</div>
 				</div>
 				<!-- ADD FILTER -->
-				<div class="col-sm-12 text-center">
+				<div class="col-sm-4 col-sm-offset-4 text-center" style="margin-top:20px">
 					<button class="btn btn-success" ng-click="vm.addFilter()">Add Filter</button>
 				</div>
 			</div>
