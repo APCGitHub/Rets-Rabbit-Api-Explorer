@@ -64,7 +64,7 @@
 				<label class="control-label col-sm-2" for="orderby">$orderby:</label>
 				<div class="col-sm-10">
 					<div style="margin-bottom:15px" class="row" ng-repeat="orderby in vm.data.searchForm.orderby track by $index">
-						<div class="col-sm-8 col-xs-7">
+						<div class="col-sm-7 col-xs-7">
 							<input 
 								name="orderby_{{$index}}" 
 								ng-model="vm.data.searchForm.orderby[$index].value" 
@@ -78,7 +78,7 @@
 								<p ng-show="explorerForm.orderby_{{$index}}.$invalid" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Orderby must not be empty</p>
 							</div>
 						</div>
-						<div class="col-sm-2 col-xs-3">
+						<div class="col-sm-3 col-xs-3">
 							<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
 								<option value="asc" selected>asc</option>
 								<option value="desc">desc</option>
@@ -145,7 +145,7 @@
 			<pre>{{vm.data.error | prettyJson}}</pre>
 		</div>
 		<div ng-if="!vm.data.error && !vm.data.results">
-			<code style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
+			<code class="text-center" style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
 		</div>
 	</div>
 </div>
