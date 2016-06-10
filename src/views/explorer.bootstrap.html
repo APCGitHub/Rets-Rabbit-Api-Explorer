@@ -1,6 +1,6 @@
 <div class="row">
 	<!-- FORM -->
-	<div class="col-md-6 col-sm-4 col-xs-12">
+	<div class="col-sm-6 col-xs-12">
 		<h3>Build Query</h3>
 		<form ng-submit="vm.search(explorerForm.$valid)" name="explorerForm" role="form" class="form-horizontal" novalidate>
 			<!-- SELECT -->
@@ -93,7 +93,7 @@
 						</div>
 					</div>
 					<!-- EMPTY MESSAGE -->
-					<div class="row" ng-show="vm.data.searchForm.orderby.length < 1">
+					<div class="row" ng-show="vm.data.searchForm.orderby.length < 1" style="margin-bottom:20px">
 						<div class="col-sm-12">
 							<div><strong>Click the button below to add your first orderby</strong></div>
 						</div>
@@ -125,7 +125,7 @@
 		</form>
 	</div>
 	<!-- QUERY -->
-	<div class="col-md-6 col-sm-4 col-xs-12">
+	<div class="col-sm-6 col-xs-12">
 		<h3>Request</h3>
 		<code style="display:block; padding:10px">
 			{{vm.data.fullRequest}}
