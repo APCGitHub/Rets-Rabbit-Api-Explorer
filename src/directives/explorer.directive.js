@@ -17,12 +17,12 @@
         };
 
         function _controller() {
-        	var vm = this;
+            var vm = this;
 
             vm.data = {
                 searchForm: {
                     select: '',
-                    filter: [{ value: '', operator: '', join: 'and'}],
+                    filter: [{ value: '', operator: '', join: 'and' }],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
                     skip: ''
@@ -45,7 +45,7 @@
 
             /* --- Methods --- */
             function _search(valid) {
-                if(!valid)
+                if (!valid)
                     return;
 
                 vm.data.total_results = -1;
@@ -53,15 +53,15 @@
                 vm.data.results = null;
                 vm.data.searching = true;
 
-            	PropertyFactory.search(vm.data.request).then(function (res){
-            		vm.data.error = null;
-            		vm.data.results = res;
+                PropertyFactory.search(vm.data.request).then(function(res) {
+                    vm.data.error = null;
+                    vm.data.results = res;
                     vm.data.total_results = res.value.length;
                     vm.data.searching = false;
-            	}, function (err) {
+                }, function(err) {
                     vm.data.searching = false;
-            		vm.data.error = err.error;
-            	});
+                    vm.data.error = err.error;
+                });
             }
 
 
@@ -73,9 +73,9 @@
                 });
             }
 
-            function _removeFilter(filter){
-            	var i = vm.data.searchForm.filter.indexOf(filter);
-            	vm.data.searchForm.filter.splice(i, 1);
+            function _removeFilter(filter) {
+                var i = vm.data.searchForm.filter.indexOf(filter);
+                vm.data.searchForm.filter.splice(i, 1);
                 _buildQuery();
             }
 
@@ -86,9 +86,9 @@
                 });
             }
 
-            function _removeOrderby(orderby){
-            	var i = vm.data.searchForm.orderby.indexOf(orderby);
-            	vm.data.searchForm.orderby.splice(i, 1);
+            function _removeOrderby(orderby) {
+                var i = vm.data.searchForm.orderby.indexOf(orderby);
+                vm.data.searchForm.orderby.splice(i, 1);
                 _buildQuery();
             }
 
@@ -101,55 +101,76 @@
             function _buildQuery() {
                 var _q = '';
                 var i = 0;
-                var filter_array = [];
+
+                var params = [0, 0, 0, 0, 0]; //select, filter, orderby, top, skip
 
                 //select
-                 if (vm.data.searchForm.select !== '')
+                if (vm.data.searchForm.select !== '') {
+                    params[0] = 1;
                     _q += '$select=' + vm.data.searchForm.select;
+                }
 
                 //filter
-                if (vm.data.searchForm.filter.length && vm.data.searchForm.filter[0].value !== '')
-                    if (vm.data.searchForm.select !== '')
-                        _q += '&$filter=';
+                if (vm.data.searchForm.filter.length) {
+                    params[1] = 1;
+
+                    if (params[0])
+                        _q += '&$filte=';
                     else
-                        _q += '$filter=';
+                        _q += '$filter';
 
+                    for (i = 0; i < vm.data.searchForm.filter.length; i++) {
+                        _q += vm.data.searchForm.filter[i].value;
 
-                for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
-                    if(vm.data.searchForm.filter[i].value === '')
-                        continue;
+                        if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length) {
+                            _q += ' ' + vm.data.searchForm.filter[i].join;
+                        }
 
-                    _q += vm.data.searchForm.filter[i].value;
-
-                    if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length){
-                        _q += ' ' + vm.data.searchForm.filter[i].join;
+                        if (i + 1 < vm.data.searchForm.filter.length)
+                            _q += ' ';
                     }
-
-                    if (i + 1 < vm.data.searchForm.filter.length)
-                        _q += ' ';
                 }
 
                 //orderby
-                if (vm.data.searchForm.orderby.length && vm.data.searchForm.orderby[0].value !== '')
-                    if (vm.data.searchForm.select !== '' && vm.data.searchForm.filter.length)
+                if (vm.data.searchForm.orderby.length) {
+                    params[2] = 1;
+
+                    if (params[0] + params[1] > 0)
                         _q += '&$orderby=';
                     else
                         _q += '$orderby=';
 
-                _q += vm.data.searchForm.orderby.map(function(orderby) {
-                	if(orderby.value !== '')
-                    	return orderby.value + ' ' + orderby.direction;
-                    else
-                    	return '';
-                }).join(', ');
+                    _q += vm.data.searchForm.orderby.map(function(orderby) {
+                        if (orderby.value !== '')
+                            return orderby.value + ' ' + orderby.direction;
+                        else
+                            return '';
+                    }).join(', ');
+                }
 
                 //top
-                if (vm.data.searchForm.top != '')
-                    _q += '&$top=' + vm.data.searchForm.top;
+                if (vm.data.searchForm.top != '') {
+                    params[3] = 1;
+
+                    if(params[0] + params[1] + params[2] > 0)
+                        _q += '&$top=';
+                    else
+                        _q += '$top='
+
+                    _q += vm.data.searchForm.top;
+                }
 
                 //skip
-                if (vm.data.searchForm.skip != '')
-                    _q += '&$skip=' + vm.data.searchForm.skip;
+                if (vm.data.searchForm.skip != '') {
+                    params[4] = 1;
+                    
+                    if(params[0] + params[1] + params[2] + params[3] > 0)
+                        _q += '&$skip=';
+                    else
+                        _q += '$skip='
+
+                    _q += vm.data.searchForm.skip;
+                }
 
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
