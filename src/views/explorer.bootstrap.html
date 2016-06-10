@@ -20,6 +20,7 @@
 								ng-change="vm.updateQuery()" 
 								name="filter[]" 
 								class="form-control" 
+								required
 								ng-model="vm.data.searchForm.filter[$index].value" 
 								id="filter_{{$index+1}}" 
 								type="text"/>
@@ -58,7 +59,8 @@
 								name="orderby[]" 
 								ng-model="vm.data.searchForm.orderby[$index].value" 
 								id="orderby_input_{{$index+1}}" 
-								class="form-control" 
+								class="form-control"
+								required
 								value="orderby.value"
 								ng-change="vm.updateQuery()"
 								type="text"/>	
@@ -84,12 +86,12 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="top">$top:</label>
 				<div class="col-sm-4">
-					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.top" name="top" class="form-control" id="top" type="text"/>
+					<input ng-change="vm.updateQuery()" required ng-model="vm.data.searchForm.top" name="top" class="form-control" id="top" type="text"/>
 				</div>
 				<!-- SKIP -->
 				<label class="control-label col-sm-2" for="skip">$skip:</label>
 				<div class="col-sm-4">
-					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
+					<input ng-change="vm.updateQuery()" required ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary" ng-disabled="vm.data.searching" value="search">
