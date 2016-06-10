@@ -94,10 +94,16 @@
 					<input ng-change="vm.updateQuery()" required ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary" ng-disabled="vm.data.searching" value="search">
-				<span ng-if="!vm.data.searching">Search</span>
-				<span ng-if="vm.data.searching">Searching...</span>
-			</button>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 text-center">
+						<button type="submit" class="btn btn-primary btn-lg" ng-disabled="vm.data.searching" value="search">
+							<span ng-if="!vm.data.searching">Search</span>
+							<span ng-if="vm.data.searching">Searching...</span>
+						</button>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 	<!-- QUERY -->
