@@ -115,7 +115,7 @@
                     params[1] = 1;
 
                     if (params[0])
-                        _q += '&$filte=';
+                        _q += '&$filter=';
                     else
                         _q += '$filter';
 
