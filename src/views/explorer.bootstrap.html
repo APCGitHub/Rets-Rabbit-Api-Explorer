@@ -51,7 +51,7 @@
 					<!-- EMPTY MESSAGE -->
 					<div class="row" ng-show="vm.data.searchForm.filter.length < 1">
 						<div class="col-sm-12">
-							<p>Click the button below to add your first filter</p>
+							<div><strong>Click the button below to add your first filter</strong></div>
 						</div>
 					</div>
 					<!-- ADD FILTER -->
@@ -92,10 +92,18 @@
 							<button type="button" class="btn btn-danger" ng-click="vm.removeOrderby(orderby)"><i class="fa fa-trash-o"></i></button>
 						</div>
 					</div>
-				</div>
-				<!-- ADD ORDERBY -->
-				<div class="col-sm-4 col-sm-offset-4 text-center">
-					<button type="button" class="btn btn-success" ng-click="vm.addOrderby()">Add Orderby</button>
+					<!-- EMPTY MESSAGE -->
+					<div class="row" ng-show="vm.data.searchForm.orderby.length < 1">
+						<div class="col-sm-12">
+							<div><strong>Click the button below to add your first orderby</strong></div>
+						</div>
+					</div>
+					<!-- ADD ORDERBY -->
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<button type="button" class="btn btn-success" ng-click="vm.addOrderby()">Add Orderby</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- TOP -->
