@@ -24,7 +24,7 @@
 								ng-model="vm.data.searchForm.filter[$index].value" 
 								id="filter_{{$index+1}}" 
 								type="text"/>
-							<p ng-show="explorerForm.filter_{{$index}}.$invalid && !explorerForm.filter_{{$index}}.$pristine" class="help-block">Orderby must not be empty</p>
+							<p ng-show="explorerForm.filter_{{$index}}.$invalid && !explorerForm.filter_{{$index}}.$pristine" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Filter must not be empty</p>
 						</div>
 						<!-- REMOVE FILTER -->
 						<div class="col-sm-2">
@@ -65,7 +65,7 @@
 								value="orderby.value"
 								ng-change="vm.updateQuery()"
 								type="text"/>	
-							<p ng-show="explorerForm.orderby_{{$index}}.$invalid && !explorerForm.orderby_{{$index}}.$pristine" class="help-block">Orderby must not be empty</p>
+							<p ng-show="explorerForm.orderby_{{$index}}.$invalid && !explorerForm.orderby_{{$index}}.$pristine" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Orderby must not be empty</p>
 						</div>
 						<div class="col-sm-2">
 							<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
@@ -96,7 +96,7 @@
 					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-lg" ng-disabled="vm.data.searching || explorerForm.$invalid" value="search">
+			<button type="submit" class="btn btn-primary btn-lg" ng-disabled="vm.data.searching" value="search">
 				<span ng-if="!vm.data.searching">Search</span>
 				<span ng-if="vm.data.searching">Searching...</span>
 			</button>
