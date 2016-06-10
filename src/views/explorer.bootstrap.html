@@ -37,8 +37,8 @@
 					</div>
 					<!-- JOIN: AND | OR -->
 					<div class="row" ng-repeat-end ng-if="$index + 1 < vm.data.searchForm.filter.length" style="margin-top:15px; margin-bottom:15px">
-						<div class="visible-xs col-xs-3"></div>
-						<div class="col-sm-4 col-sm-offset-4 col-xs-6 text-center">
+						<div class="visible-xs col-xs-1"></div>
+						<div class="col-sm-4 col-sm-offset-1 col-xs-4 text-center">
 							<select ng-model="vm.data.searchForm.filter[$index].join" class="form-control" ng-change="vm.updateQuery()">
 								<option value="and" selected>and</option>
 								<option value="or">or</option>
