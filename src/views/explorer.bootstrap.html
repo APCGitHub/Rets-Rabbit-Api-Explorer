@@ -48,10 +48,18 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- ADD FILTER -->
-				<div class="col-sm-4 col-sm-offset-4 text-center" style="margin-top:20px">
-					<button type="button" class="btn btn-success" ng-click="vm.addFilter()">Add Filter</button>
+					<!-- EMPTY MESSAGE -->
+					<div class="row" ng-show="vm.data.searchForm.filter.length < 1">
+						<div class="col-sm-12">
+							<p>Click the button below to add your first filter</p>
+						</div>
+					</div>
+					<!-- ADD FILTER -->
+					<div class="row">
+						<div class="col-sm-12 text-center" style="margin-top:20px">
+							<button type="button" class="btn btn-success" ng-click="vm.addFilter()">Add Filter</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- ORDERBY -->
