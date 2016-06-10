@@ -24,7 +24,11 @@
 								ng-model="vm.data.searchForm.filter[$index].value" 
 								id="filter_{{$index+1}}" 
 								type="text"/>
-							<p ng-show="explorerForm.filter_{{$index}}.$invalid && !explorerForm.filter_{{$index}}.$pristine" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Filter must not be empty</p>
+							<div ng-show="explorerForm.$submitted || explorerForm.filter_{{$index}}.$touched">
+								<p ng-show="explorerForm.filter_{{$index}}.$invalid" class="help-block">
+									<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Filter must not be empty
+								</p>
+							</div>
 						</div>
 						<!-- REMOVE FILTER -->
 						<div class="col-sm-2">
