@@ -129,7 +129,11 @@
 			{{vm.data.fullRequest}}
 		</code>
 	</div>
-	<hr>
+	<div class="row">
+		<div class="col-sm-12">
+			<hr>
+		</div>
+	</div>
 	<!-- RESULTS -->
 	<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
 		<h3 class="text-center">Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span></h3>
@@ -138,6 +142,9 @@
 		</div>
 		<div class="error" ng-if="vm.data.error">
 			<pre>{{vm.data.error | prettyJson}}</pre>
+		</div>
+		<div ng-if="!vm.data.error && !vm.data.results">
+			<code>Click "Search" to hit the Retsrabbit V2 API!</code>
 		</div>
 	</div>
 </div>
