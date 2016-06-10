@@ -114,15 +114,12 @@
                     else
                         _q += '$filter=';
 
-                filter_array = vm.data.searchForm.filter.map(function(filter) {
-                    return filter.value
-                });
 
                 for (var i = 0; i < vm.data.searchForm.filter.length; i++) {
                     if(vm.data.searchForm.filter[i].value === '')
                         continue;
 
-                    _q += filter_array[i];
+                    _q += vm.data.searchForm.filter[i].value;
 
                     if (vm.data.searchForm.filter[i].value !== '' && i + 1 < vm.data.searchForm.filter.length){
                         _q += ' ' + vm.data.searchForm.filter[i].join;

@@ -69,7 +69,9 @@
 								value="orderby.value"
 								ng-change="vm.updateQuery()"
 								type="text"/>	
-							<p ng-show="explorerForm.orderby_{{$index}}.$invalid && !explorerForm.orderby_{{$index}}.$pristine" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Orderby must not be empty</p>
+							<div ng-show="explorerForm.$submitted || explorerForm.orderby_{{$index}}.$touched">
+								<p ng-show="explorerForm.orderby_{{$index}}.$invalid" class="help-block"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;Orderby must not be empty</p>
+							</div>
 						</div>
 						<div class="col-sm-2">
 							<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
