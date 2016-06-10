@@ -44,7 +44,10 @@
             vm.updateQuery = _buildQuery;
 
             /* --- Methods --- */
-            function _search() {
+            function _search(valid) {
+                if(!valid)
+                    return;
+
                 vm.data.total_results = -1;
                 vm.data.error = null;
                 vm.data.results = null;

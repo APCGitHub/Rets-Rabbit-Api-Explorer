@@ -2,7 +2,7 @@
 	<!-- FORM -->
 	<div class="col-md-6 col-sm-4 col-xs-12">
 		<h3>Build Query</h3>
-		<form ng-submit="vm.search()" role="form" class="form-horizontal">
+		<form ng-submit="vm.search(explorerForm.$valid)" name="explorerForm" role="form" class="form-horizontal" novalidate>
 			<!-- SELECT -->
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="select">$select:</label>
@@ -18,12 +18,13 @@
 						<div class="col-sm-10">
 							<input  
 								ng-change="vm.updateQuery()" 
-								name="filter[]" 
+								name="filter_{{$index}}" 
 								class="form-control" 
 								required
 								ng-model="vm.data.searchForm.filter[$index].value" 
 								id="filter_{{$index+1}}" 
 								type="text"/>
+							<p ng-show="explorerForm.filter_{{$index}}.$invalid && !explorerForm.filter_{{$index}}.$pristine" class="help-block">Orderby must not be empty</p>
 						</div>
 						<!-- REMOVE FILTER -->
 						<div class="col-sm-2">
@@ -56,7 +57,7 @@
 					<div style="margin-bottom:15px" class="row" ng-repeat="orderby in vm.data.searchForm.orderby track by $index">
 						<div class="col-sm-8">
 							<input 
-								name="orderby[]" 
+								name="orderby_{{$index}}" 
 								ng-model="vm.data.searchForm.orderby[$index].value" 
 								id="orderby_input_{{$index+1}}" 
 								class="form-control"
@@ -64,6 +65,7 @@
 								value="orderby.value"
 								ng-change="vm.updateQuery()"
 								type="text"/>	
+							<p ng-show="explorerForm.orderby_{{$index}}.$invalid && !explorerForm.orderby_{{$index}}.$pristine" class="help-block">Orderby must not be empty</p>
 						</div>
 						<div class="col-sm-2">
 							<select ng-model="vm.data.searchForm.orderby[$index].direction" class="form-control" ng-change="vm.updateQuery()">
@@ -86,24 +88,18 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="top">$top:</label>
 				<div class="col-sm-4">
-					<input ng-change="vm.updateQuery()" required ng-model="vm.data.searchForm.top" name="top" class="form-control" id="top" type="text"/>
+					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.top" name="top" class="form-control" id="top" type="text"/>
 				</div>
 				<!-- SKIP -->
 				<label class="control-label col-sm-2" for="skip">$skip:</label>
 				<div class="col-sm-4">
-					<input ng-change="vm.updateQuery()" required ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
+					<input ng-change="vm.updateQuery()" ng-model="vm.data.searchForm.skip" name="skip" class="form-control" id="skip" type="text"/>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-2">
-						<button type="submit" class="btn btn-primary btn-lg" ng-disabled="vm.data.searching" value="search">
-							<span ng-if="!vm.data.searching">Search</span>
-							<span ng-if="vm.data.searching">Searching...</span>
-						</button>
-					</div>
-				</div>
-			</div>
+			<button type="submit" class="btn btn-primary btn-lg" ng-disabled="vm.data.searching || explorerForm.$invalid" value="search">
+				<span ng-if="!vm.data.searching">Search</span>
+				<span ng-if="vm.data.searching">Searching...</span>
+			</button>
 		</form>
 	</div>
 	<!-- QUERY -->
