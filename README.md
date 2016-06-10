@@ -18,3 +18,8 @@ This directive can either be used as an element or an attribute
 ```html
 <div api-explorer></div>
 ```
+###Customization
+Currently there are no customization options. The directive is built with Bootstrap classes, so it will work best when that framework is present. In the future we hope to provide
+
+1. Framework specific templating
+2. Customization attributes
