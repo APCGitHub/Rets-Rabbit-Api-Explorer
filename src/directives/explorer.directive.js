@@ -14,9 +14,9 @@
             },
             link: function(scope, element, attrs, controller) {
                 // detect outside changes and update our input
-                scope.$watch('fillSearch', function(newv, oldv) {
-                    console.log(newv);
-                }, true);
+                scope.$watch('fillSearch', function(newv) {
+                    console.log(scope);
+                });
             },
             templateUrl: 'explorer.bootstrap.html',
             controller: _controller,
