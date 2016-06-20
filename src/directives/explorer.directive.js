@@ -12,10 +12,10 @@
             scope: {
                 fillSearch: '='
             },
-            link: function(scope, element, attrs) {
+            link: function(scope, element, attrs, controller) {
                 // detect outside changes and update our input
                 scope.$watch('fillSearch', function(val) {
-                    console.log(val);
+                    console.log(controller.data.searchForm);
                 });
             },
             templateUrl: 'explorer.bootstrap.html',
