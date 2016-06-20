@@ -9,7 +9,15 @@
     function Directive(ApiConfig, PropertyFactory) {
         return {
             restrict: 'EA',
-            scope: {},
+            scope: {
+                fillSearch: '='
+            },
+            link: function(scope, element, attrs) {
+                // detect outside changes and update our input
+                scope.$watch('fillSearch', function(val) {
+                    console.log(val);
+                });
+            },
             templateUrl: 'explorer.bootstrap.html',
             controller: _controller,
             controllerAs: 'vm',
@@ -152,7 +160,7 @@
                 if (vm.data.searchForm.top != '') {
                     params[3] = 1;
 
-                    if(params[0] + params[1] + params[2] > 0)
+                    if (params[0] + params[1] + params[2] > 0)
                         _q += '&$top=';
                     else
                         _q += '$top='
@@ -163,8 +171,8 @@
                 //skip
                 if (vm.data.searchForm.skip != '') {
                     params[4] = 1;
-                    
-                    if(params[0] + params[1] + params[2] + params[3] > 0)
+
+                    if (params[0] + params[1] + params[2] + params[3] > 0)
                         _q += '&$skip=';
                     else
                         _q += '$skip='
