@@ -10,13 +10,13 @@
         return {
             restrict: 'EA',
             scope: {
-                test: '&'
+                test: '&search'
             },
             link: function(scope, element, attrs, controller) {
                 console.log(scope.test);
                 // detect outside changes and update our input
                 scope.$watch('test', function(newv) {
-                    console.log(scope);
+                    console.log(newv);
                 });
             },
             templateUrl: 'explorer.bootstrap.html',
