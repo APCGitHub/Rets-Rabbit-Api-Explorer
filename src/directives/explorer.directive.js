@@ -10,11 +10,12 @@
         return {
             restrict: 'EA',
             scope: {
-                fillSearch: '='
+                test: '&'
             },
             link: function(scope, element, attrs, controller) {
+                console.log(scope.test());
                 // detect outside changes and update our input
-                scope.$watch('fillSearch', function(newv) {
+                scope.$watch('test', function(newv) {
                     console.log(scope);
                 });
             },
