@@ -1,6 +1,6 @@
 {
   "name": "rr-api-explorer",
-  "description": "Angular project showcasing a public api explorer for the Retsrabbit API v2",
+  "description": "Angular directive explorer for the Retsrabbit API v2",
   "authors": [
     "Andrew Clinton <aclinton@anecka.com>"
   ],
