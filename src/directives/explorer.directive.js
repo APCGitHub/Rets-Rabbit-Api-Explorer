@@ -16,6 +16,7 @@
                 return this.search;
             }), function(newVal) {
                 if(newVal && newVal !== 'undefined') {
+                    console.log(JSON.stringify(newVal));
                     vm.data.searchForm.select = newVal.query.select;
                     vm.data.searchForm.filter = newVal.query.filter;
                     vm.data.searchForm.orderby = newVal.query.orderby;
