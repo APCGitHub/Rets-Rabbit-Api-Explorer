@@ -10,24 +10,22 @@
         return {
             restrict: 'EA',
             scope: {
-                search: '='
             },
             link: function(scope, element, attrs, controller) {
-                var search_params = JSON.stringify(scope.$eval(attrs.search));
-                console.log('search: ' + search_params);
-                // detect outside changes and update our input
-                scope.$watch('search', function(newv) {
-                    console.log(newv);
-                });
             },
             templateUrl: 'explorer.bootstrap.html',
             controller: _controller,
             controllerAs: 'vm',
-            bindToController: true
+            bindToController: {
+                search: '='
+            }
         };
 
-        function _controller() {
+        function _controller($scope) {
             var vm = this;
+
+            console.log(vm.search);
+            console.log($scope.search);
 
             vm.data = {
                 searchForm: {
