@@ -142,6 +142,7 @@
 	<!-- RESULTS -->
 	<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 		<h3 class="text-center">Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span></h3>
+		<img ng-if="vm.data.searching" src="vm.loader">
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
 			<pre style="max-height:600px">{{vm.data.results | prettyJson}}</pre>
 		</div>

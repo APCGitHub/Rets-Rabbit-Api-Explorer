@@ -10,6 +10,8 @@
         var controller = ['$scope', 'PropertyFactory', function($scope, PropertyFactory) {
             var vm = this;
 
+            console.log(vm.loader);
+
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
@@ -190,7 +192,8 @@
             controller: controller,
             controllerAs: 'vm',
             bindToController: {
-                search: '='
+                search: '=',
+                loader: '='
             }
         };
     }
