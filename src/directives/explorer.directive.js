@@ -13,7 +13,7 @@
                 woah: '&search'
             },
             link: function(scope, element, attrs, controller) {
-                console.log('search: ' + scope.woah());
+                console.log('search: ' + scope.woah);
                 // detect outside changes and update our input
                 scope.$watch('woah', function(newv) {
                     console.log(newv);
