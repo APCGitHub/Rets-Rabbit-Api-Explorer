@@ -15,7 +15,13 @@
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
-                console.log('search changed to ' + JSON.stringify(newVal));
+                if(newVal && newVal !== 'undefined') {
+                    vm.data.searchForm.select = newVal.query.select;
+                    vm.data.searchForm.filter = newVal.query.filter;
+                    vm.data.searchForm.orderby = newVal.query.orderby;
+                    vm.data.searchForm.top = newVal.query.top;
+                    vm.data.searchForm.skip = newVal.query.skip;
+                }
             });
 
             vm.data = {
