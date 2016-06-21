@@ -10,12 +10,12 @@
         return {
             restrict: 'EA',
             scope: {
-                test: '@search'
+                search: '=?'
             },
             link: function(scope, element, attrs, controller) {
-                console.log('test: ' + scope.test);
+                console.log('search: ' + scope.search);
                 // detect outside changes and update our input
-                scope.$watch('test', function(newv) {
+                scope.$watch('search', function(newv) {
                     console.log(newv);
                 });
             },
