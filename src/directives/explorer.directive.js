@@ -10,7 +10,7 @@
         return {
             restrict: 'EA',
             scope: {
-                woah: '&search'
+                woah: '=search'
             },
             link: function(scope, element, attrs, controller) {
                 console.log('search: ' + scope.woah);
