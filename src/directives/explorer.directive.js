@@ -9,11 +9,9 @@
     function Directive(ApiConfig, PropertyFactory) {
         return {
             restrict: 'EA',
-            scope: {
-                search: '@'
-            },
+            scope: {},
             link: function(scope, element, attrs, controller) {
-                console.log('search: ' + scope.search);
+                console.log('search: ' + scope.$eval(attrs.search));
                 // detect outside changes and update our input
                 scope.$watch('search', function(newv) {
                     console.log(newv);
