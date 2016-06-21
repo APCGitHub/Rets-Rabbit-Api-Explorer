@@ -10,10 +10,12 @@
         var controller = ['$scope', function($scope) {
             var vm = this;
 
+            console.log(vm.search);
+
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
-                console.log('search changed to ' + newVal);
+                console.log('search changed to ' + JSON.stringify(newVal));
             });
 
             vm.data = {
