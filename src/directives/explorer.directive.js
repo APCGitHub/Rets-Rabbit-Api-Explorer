@@ -182,6 +182,8 @@
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
+
+            console.log(vm);
         }];
 
         return {
