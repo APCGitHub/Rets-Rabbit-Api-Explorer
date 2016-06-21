@@ -149,7 +149,7 @@
 		<div class="error" ng-if="vm.data.error">
 			<pre>{{vm.data.error | prettyJson}}</pre>
 		</div>
-		<div ng-if="!vm.data.error && !vm.data.results">
+		<div ng-if="!vm.data.error && !vm.data.results && !vm.data.searching">
 			<code class="text-center" style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
 		</div>
 	</div>
