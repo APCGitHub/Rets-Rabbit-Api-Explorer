@@ -41,7 +41,7 @@
             };
 
             /* --- Bind Method Handles --- */
-            vm.search = _search;
+            vm.doSearch = _search;
             vm.addFilter = _addFilter;
             vm.removeFilter = _removeFilter;
             vm.addOrderby = _addOrderby;
@@ -57,8 +57,6 @@
                 vm.data.error = null;
                 vm.data.results = null;
                 vm.data.searching = true;
-
-                console.log('trying to search...');
 
                 PropertyFactory.search(vm.data.request).then(function(res) {
                     vm.data.error = null;
@@ -186,7 +184,7 @@
 
         return {
             restrict: 'EA',
-            scope: {},
+            scope: true,
             link: function(scope, element, attrs, controller) {},
             templateUrl: 'explorer.bootstrap.html',
             controller: controller,
