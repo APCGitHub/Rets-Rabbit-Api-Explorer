@@ -10,8 +10,11 @@
         var controller = ['$scope', function($scope) {
             var vm = this;
 
-            console.log(vm.search);
-            console.log($scope.search);
+            $scope.$watch(angular.bind(this, function() {
+                return this.search;
+            }), function(newVal) {
+                console.log('search changed to ' + newVal);
+            });
 
             vm.data = {
                 searchForm: {
