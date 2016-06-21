@@ -15,6 +15,7 @@
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
+                console.log('typeof: ' + typeof newVal);
                 if( newVal && newVal !== 'undefined' && newVal !== undefined ) {
                     console.log(JSON.stringify(newVal));
                     vm.data.searchForm.select = newVal.query.select;
