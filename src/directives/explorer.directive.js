@@ -7,10 +7,8 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', function($scope) {
+        var controller = ['$scope', 'PropertyFactory', function($scope, PropertyFactory) {
             var vm = this;
-
-            console.log(vm.search);
 
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
@@ -182,8 +180,6 @@
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
-
-            console.log(vm);
         }];
 
         return {
