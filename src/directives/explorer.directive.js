@@ -9,7 +9,9 @@
     function Directive(ApiConfig, PropertyFactory) {
         return {
             restrict: 'EA',
-            scope: {},
+            scope: {
+                search: '='
+            },
             link: function(scope, element, attrs, controller) {
                 var search_params = JSON.stringify(scope.$eval(attrs.search));
                 console.log('search: ' + search_params);
