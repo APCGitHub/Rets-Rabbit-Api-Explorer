@@ -58,6 +58,8 @@
                 vm.data.results = null;
                 vm.data.searching = true;
 
+                console.log('trying to search...');
+
                 PropertyFactory.search(vm.data.request).then(function(res) {
                     vm.data.error = null;
                     vm.data.results = res;
