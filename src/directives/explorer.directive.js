@@ -11,7 +11,8 @@
             restrict: 'EA',
             scope: {},
             link: function(scope, element, attrs, controller) {
-                console.log('search: ' + scope.$eval(attrs.search));
+                var search_params = JSON.stringify(scope.$eval(attrs.search));
+                console.log('search: ' + search_params);
                 // detect outside changes and update our input
                 scope.$watch('search', function(newv) {
                     console.log(newv);
