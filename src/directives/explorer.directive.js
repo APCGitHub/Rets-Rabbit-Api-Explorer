@@ -7,21 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        return {
-            restrict: 'EA',
-            scope: {
-            },
-            link: function(scope, element, attrs, controller) {
-            },
-            templateUrl: 'explorer.bootstrap.html',
-            controller: _controller,
-            controllerAs: 'vm',
-            bindToController: {
-                search: '='
-            }
-        };
-
-        function _controller($scope) {
+        var controller = ['$scope', function($scope) {
             var vm = this;
 
             console.log(vm.search);
@@ -183,6 +169,18 @@
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
-        }
+        }];
+
+        return {
+            restrict: 'EA',
+            scope: {},
+            link: function(scope, element, attrs, controller) {},
+            templateUrl: 'explorer.bootstrap.html',
+            controller: controller,
+            controllerAs: 'vm',
+            bindToController: {
+                search: '='
+            }
+        };
     }
 })();
