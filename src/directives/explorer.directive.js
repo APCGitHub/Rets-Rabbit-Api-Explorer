@@ -21,6 +21,8 @@
                     vm.data.searchForm.orderby = newVal.query.orderby;
                     vm.data.searchForm.top = newVal.query.top;
                     vm.data.searchForm.skip = newVal.query.skip;
+
+                    _buildQuery();
                 }
             });
 
