@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', 'PropertyFactory', function($scope, PropertyFactory) {
+        var controller = ['$scope', '$document', 'PropertyFactory', function($scope, $document, PropertyFactory) {
             var vm = this;
 
             $scope.$watch(angular.bind(this, function() {
@@ -52,6 +52,9 @@
             function _search(valid) {
                 if (!valid)
                     return;
+
+                var someElement = angular.element(document.getElementById('query-results'));
+                $document.scrollToElement(someElement, 30, 300);
 
                 vm.data.total_results = -1;
                 vm.data.error = null;
