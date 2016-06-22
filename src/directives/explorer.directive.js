@@ -202,7 +202,7 @@
             function _startCount(total_time) {
                 var time = 0;
                 vm.data.query_time = 0;
-                var intervalPeriod = 100;
+                var max_time = 2500;
                 promise = $interval(function(time) {
                     if (vm.data.query_time == total_time) {
 
@@ -214,7 +214,7 @@
                     } else {
                         vm.data.query_time++;
                     }
-                }, intervalPeriod);
+                }, max_time/total_time);
             }
         }];
 
