@@ -203,18 +203,24 @@
                 var time = 0;
                 vm.data.query_time = 0;
                 var max_time = 1000;
-                promise = $interval(function(time) {
-                    if (vm.data.query_time == total_time) {
 
-                        $interval.cancel(promise);
-                        // textAnim = $timeout(function() {
-                        //     $scope.text = 'done!';
-                        // }, 1000);
+                //skip counter if too long
+                if (total_time > 5000) {
+                    vm.data.query_time = total_time;
+                } else {
+                    promise = $interval(function(time) {
+                        if (vm.data.query_time == total_time) {
 
-                    } else {
-                        vm.data.query_time++;
-                    }
-                }, max_time/total_time);
+                            $interval.cancel(promise);
+                            // textAnim = $timeout(function() {
+                            //     $scope.text = 'done!';
+                            // }, 1000);
+
+                        } else {
+                            vm.data.query_time++;
+                        }
+                    }, max_time / total_time);
+                }
             }
         }];
 
