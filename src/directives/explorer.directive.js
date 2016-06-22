@@ -9,7 +9,8 @@
     function Directive(ApiConfig, PropertyFactory) {
         var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
             var vm = this,
-                promise;
+                promise,
+                someElement = angular.element(document.getElementById('query-results'));
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -62,9 +63,6 @@
                 if (!valid)
                     return;
 
-                var someElement = angular.element(document.getElementById('query-results'));
-                $document.scrollToElement(someElement, 80, 300);
-
                 vm.data.total_results = -1;
                 vm.data.error = null;
                 vm.data.results = null;
@@ -73,6 +71,7 @@
                 var start = new Date();
 
                 PropertyFactory.search(vm.data.request).then(function(res) {
+                    $document.scrollToElement(someElement, 80, 300);
                     var end = new Date();
 
                     //vm.data.query_time = end.getTime() - start.getTime();
@@ -82,6 +81,7 @@
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
                 }, function(err) {
+                    $document.scrollToElement(someElement, 80, 300);
                     vm.data.query_time = -1;
                     vm.data.searching = false;
                     vm.data.error = err.error;
