@@ -203,11 +203,12 @@
             }
 
             function _startCount(total_time) {
+                var max_time = 5000; //ms
                 _stopCount();
 
                 promise = $interval(function () {
                     _countUp(total_time);
-                }, 40);
+                }, max_time/total_time);
             }
 
             function _countUp(total_time) {
