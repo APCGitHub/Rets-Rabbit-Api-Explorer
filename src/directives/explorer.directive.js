@@ -203,6 +203,7 @@
                 var time = 0;
                 vm.data.query_time = 0;
                 var max_time = 2500;
+                console.log('interval: ' + max_time/total_time);
                 promise = $interval(function(time) {
                     if (vm.data.query_time == total_time) {
 
