@@ -203,17 +203,12 @@
                 var time = 0;
                 vm.data.query_time = 0;
                 var max_time = 1000;
-                var max_interval = 3;
+                var interval = 5;
 
                 //skip counter if too long
-                if (total_time > 5000) {
+                if (total_time > 1000) {
                     vm.data.query_time = total_time;
                 } else {
-                    var interval = max_time / total_time;
-                    console.log(interval);
-                    if(interval > 7){
-                        interval = max_interval;
-                    }
                     promise = $interval(function(time) {
                         if (vm.data.query_time == total_time) {
 
@@ -225,7 +220,7 @@
                         } else {
                             vm.data.query_time++;
                         }
-                    }, max_interval);
+                    }, interval);
                 }
             }
         }];
