@@ -27,7 +27,7 @@
             vm.data = {
                 searchForm: {
                     select: '',
-                    filter: [{ value: '', operator: '', join: 'and' }],
+                    filter: [{ value: '', join: 'and' }],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
                     skip: ''
@@ -73,7 +73,6 @@
             function _addFilter() {
                 vm.data.searchForm.filter.push({
                     value: '',
-                    operator: '',
                     join: 'and'
                 });
             }
