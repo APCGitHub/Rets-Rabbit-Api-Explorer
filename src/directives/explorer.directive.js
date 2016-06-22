@@ -8,13 +8,14 @@
 
     function Directive(ApiConfig, PropertyFactory) {
         var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
-            var vm = this, promise;
+            var vm = this,
+                promise;
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
-                if(newVal && newVal !== 'undefined' && newVal !== undefined && (typeof newVal) != 'function') {
+                if (newVal && newVal !== 'undefined' && newVal !== undefined && (typeof newVal) != 'function') {
                     vm.data.searchForm.select = newVal.query.select;
                     vm.data.searchForm.filter = newVal.query.filter;
                     vm.data.searchForm.orderby = newVal.query.orderby;
@@ -198,25 +199,22 @@
                 vm.data.request = _q;
             }
 
-            function _stopCount() {
-                $interval.cancel(promise);
-            }
-
             function _startCount(total_time) {
-                var max_time = 200; //ms
-                _stopCount();
+                var time = 0;
+                vm.data.query_time = 0;
+                var intervalPeriod = 100;
+                promise = $interval(function(time) {
+                    if (vm.data.query_time == total_time) {
 
-                promise = $interval(function () {
-                    _countUp(total_time);
-                }, max_time);
-            }
+                        $interval.cancel(promise);
+                        // textAnim = $timeout(function() {
+                        //     $scope.text = 'done!';
+                        // }, 1000);
 
-            function _countUp(total_time) {
-                var time_start = 0;
-
-                while(vm.data.query_time <= total_time){
-                    vm.data.query_time++;
-                }
+                    } else {
+                        vm.data.query_time++;
+                    }
+                }, intervalPeriod);
             }
         }];
 
