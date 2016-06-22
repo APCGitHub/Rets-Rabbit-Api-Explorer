@@ -121,7 +121,7 @@
                     if (params[0])
                         _q += '&$filter=';
                     else
-                        _q += '$filter';
+                        _q += '$filter=';
 
                     for (i = 0; i < vm.data.searchForm.filter.length; i++) {
                         _q += vm.data.searchForm.filter[i].value;
