@@ -10,6 +10,7 @@
         var controller = ['$scope', '$document', 'PropertyFactory', function($scope, $document, PropertyFactory) {
             var vm = this;
 
+            //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
             }), function(newVal) {
@@ -61,7 +62,12 @@
                 vm.data.results = null;
                 vm.data.searching = true;
 
+                var start = new Date();
+
                 PropertyFactory.search(vm.data.request).then(function(res) {
+                    var end = new Date();
+
+                    console.log(start.getTime() - end.getTime());
                     vm.data.error = null;
                     vm.data.results = res;
                     vm.data.total_results = res.value.length;
