@@ -202,7 +202,7 @@
             function _startCount(total_time) {
                 var time = 0;
                 vm.data.query_time = 0;
-                var max_time = 1750;
+                var max_time = 1250;
                 promise = $interval(function(time) {
                     if (vm.data.query_time == total_time) {
 
