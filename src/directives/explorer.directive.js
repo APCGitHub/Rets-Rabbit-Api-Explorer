@@ -54,7 +54,7 @@
                     return;
 
                 var someElement = angular.element(document.getElementById('query-results'));
-                $document.scrollToElement(someElement, 30, 300);
+                $document.scrollToElement(someElement, 80, 300);
 
                 vm.data.total_results = -1;
                 vm.data.error = null;
