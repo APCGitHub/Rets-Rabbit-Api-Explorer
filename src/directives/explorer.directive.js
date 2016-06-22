@@ -76,11 +76,11 @@
                     var end = new Date();
 
                     //vm.data.query_time = end.getTime() - start.getTime();
-                    _startCount(end.getTime() - start.getTime());
                     vm.data.error = null;
                     vm.data.results = res;
                     vm.data.total_results = res.value.length;
                     vm.data.searching = false;
+                    _startCount(end.getTime() - start.getTime());
                 }, function(err) {
                     vm.data.query_time = -1;
                     vm.data.searching = false;
