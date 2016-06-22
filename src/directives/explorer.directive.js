@@ -210,6 +210,7 @@
                     vm.data.query_time = total_time;
                 } else {
                     var interval = max_time / total_time;
+                    console.log(interval);
                     if(interval > 7){
                         interval = max_interval;
                     }
