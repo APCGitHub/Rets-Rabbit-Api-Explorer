@@ -71,7 +71,7 @@
                 var start = new Date();
 
                 PropertyFactory.search(vm.data.request).then(function(res) {
-                    $document.scrollToElement(someElement, 80, 300);
+                    $document.scrollToElement(someElement, 70, 300);
                     var end = new Date();
 
                     //vm.data.query_time = end.getTime() - start.getTime();
@@ -81,7 +81,7 @@
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
                 }, function(err) {
-                    $document.scrollToElement(someElement, 80, 300);
+                    $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
                     vm.data.searching = false;
                     vm.data.error = err.error;
