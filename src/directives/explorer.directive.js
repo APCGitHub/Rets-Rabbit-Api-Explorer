@@ -203,7 +203,7 @@
                 var time = 0;
                 vm.data.query_time = 0;
                 var max_time = 1000;
-                var max_interval = 7;
+                var max_interval = 3;
 
                 //skip counter if too long
                 if (total_time > 5000) {
@@ -225,7 +225,7 @@
                         } else {
                             vm.data.query_time++;
                         }
-                    }, max_time / total_time);
+                    }, max_interval);
                 }
             }
         }];
