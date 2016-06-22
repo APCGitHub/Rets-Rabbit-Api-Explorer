@@ -21,6 +21,10 @@
                     vm.data.searchForm.top = newVal.query.top;
                     vm.data.searchForm.skip = newVal.query.skip;
 
+                    vm.data.error = null;
+                    vm.data.results = null;
+                    vm.data.searching = false;
+
                     _buildQuery();
                 }
             });
