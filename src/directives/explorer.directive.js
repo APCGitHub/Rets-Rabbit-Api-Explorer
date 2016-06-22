@@ -21,9 +21,11 @@
                     vm.data.searchForm.top = newVal.query.top;
                     vm.data.searchForm.skip = newVal.query.skip;
 
+                    //reset to default
                     vm.data.error = null;
                     vm.data.results = null;
                     vm.data.searching = false;
+                    vm.data.total_results = -1;
 
                     _buildQuery();
                 }
