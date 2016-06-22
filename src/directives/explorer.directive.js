@@ -7,8 +7,8 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$document', 'PropertyFactory', function($scope, $document, PropertyFactory) {
-            var vm = this;
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
+            var vm = this, promise;
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -74,7 +74,8 @@
                 PropertyFactory.search(vm.data.request).then(function(res) {
                     var end = new Date();
 
-                    vm.data.query_time = end.getTime() - start.getTime();
+                    //vm.data.query_time = end.getTime() - start.getTime();
+                    _startCount(end.getTime() - start.getTime());
                     vm.data.error = null;
                     vm.data.results = res;
                     vm.data.total_results = res.value.length;
@@ -195,6 +196,26 @@
 
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
+            }
+
+            function _stopCount() {
+                $interval.cancel(promise);
+            }
+
+            function _startCount(total_time) {
+                _stopCount();
+
+                promise = $interval(function () {
+                    _countUp(total_time);
+                }, 40);
+            }
+
+            function _countUp(total_time) {
+                var time_start = 0;
+
+                while(vm.data.query_time <= total_time){
+                    vm.data.query_time++;
+                }
             }
         }];
 
