@@ -129,7 +129,7 @@
 	<!-- QUERY -->
 	<div class="col-sm-6 col-xs-12">
 		<h3>Request</h3>
-		<code style="display:block; padding:10px">
+		<code style="display:inline-block; padding:10px">
 			{{vm.data.fullRequest}}
 		</code>
 	</div>
@@ -153,7 +153,7 @@
 			<pre>{{vm.data.error | prettyJson}}</pre>
 		</div>
 		<div ng-if="!vm.data.error && !vm.data.results && !vm.data.searching">
-			<code class="text-center" style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
+			<code class="text-center" style="display:inline-block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
 		</div>
 	</div>
 </div>
