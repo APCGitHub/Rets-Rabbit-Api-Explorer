@@ -38,7 +38,8 @@
                 results: null,
                 total_results: -1,
                 error: null,
-                searching: false
+                searching: false,
+                query_time: -1
             };
 
             /* --- Bind Method Handles --- */
@@ -67,12 +68,13 @@
                 PropertyFactory.search(vm.data.request).then(function(res) {
                     var end = new Date();
 
-                    console.log(start.getTime() - end.getTime());
+                    vm.data.query_time = end.getTime() - start.getTime();
                     vm.data.error = null;
                     vm.data.results = res;
                     vm.data.total_results = res.value.length;
                     vm.data.searching = false;
                 }, function(err) {
+                    vm.data.query_time = -1;
                     vm.data.searching = false;
                     vm.data.error = err.error;
                 });
