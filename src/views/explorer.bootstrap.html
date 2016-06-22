@@ -142,7 +142,9 @@
 	<!-- RESULTS -->
 	<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12" id="query-results">
 		<h3 class="text-center">
-			Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span><span ng-if="vm.data.total_results > -1">&nbsp;in {{vm.data.query_time}}ms</span></h3>
+			Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span>
+			<span class="pull-right" ng-if="vm.data.total_results > -1"><i>{{vm.data.query_time}}ms</i></span>
+		</h3>
 		<img style="display:block; margin-left: auto; margin-right: auto" ng-if="vm.data.searching" ng-src="{{vm.loader}}">
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
 			<pre style="max-height:600px">{{vm.data.results | prettyJson}}</pre>
