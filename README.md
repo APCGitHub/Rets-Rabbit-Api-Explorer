@@ -9,6 +9,12 @@ $ bower install rr-api-explorer
 ```
 
 ##Usage
+Make sure to import the module
+
+```
+app.module('app', ['rr.api.v2.explorer']);
+```
+
 This directive can either be used as an element or an attribute
 
 ```html
