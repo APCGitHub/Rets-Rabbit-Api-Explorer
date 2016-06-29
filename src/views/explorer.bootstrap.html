@@ -145,7 +145,7 @@
 			Results<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span>
 			<span class="pull-right" ng-if="vm.data.total_results > -1"><i>{{vm.data.query_time}}ms</i></span>
 		</h3>
-		<img style="display:block; margin-left: auto; margin-right: auto" ng-if="vm.data.searching" ng-src="{{vm.loader}}">
+		<img style="display:block; margin-left: auto; margin-right: auto" ng-if="vm.data.searching && vm.loader" ng-src="{{vm.loader}}">
 		<div class="results" ng-if="vm.data.results && !vm.data.error">
 			<pre style="max-height:600px">{{vm.data.results | prettyJson}}</pre>
 		</div>
