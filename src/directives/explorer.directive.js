@@ -81,7 +81,6 @@
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
                 }, function(err) {
-                    console.log('property search error');
                     $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
                     vm.data.searching = false;
