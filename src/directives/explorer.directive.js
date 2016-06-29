@@ -81,11 +81,10 @@
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
                 }, function(err) {
-                    console.log(err);
                     $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
                     vm.data.searching = false;
-                    vm.data.error = err.error || {};
+                    vm.data.error = err ? err.error : {};
                 });
             }
 
