@@ -13,6 +13,8 @@
                 someElement = angular.element(document.getElementById('rr-query-results')),
                 drawnItems = new L.FeatureGroup();
 
+                console.log(drawnItems);
+
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
@@ -269,7 +271,7 @@
             }
 
             //LEAFLET controls
-            /*var handle = {
+            var handle = {
                 created: function(e, leafletEvent, leafletObject, model, modelName) {
                     drawnItems.addLayer(leafletEvent.layer);
                 },
@@ -297,7 +299,6 @@
                     handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
                 });
             });
-            */
         }];
 
         return {
