@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', /*'leafletData', 'leafletDrawEvents',*/ 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, /*leafletData, leafletDrawEvents,*/ uiGmapGoogleMapApi) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'uiGmapGoogleMapApi', 'uiGmapIsReady', function($scope, $interval, $document, PropertyFactory, uiGmapGoogleMapApi, uiGmapIsReady) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results')),
@@ -17,7 +17,7 @@
                     editable: true,
                     zIndex: 1,
                     clickable: false,
-                    strokeWeight: 5
+                    strokeWeight: 3
                 };
             //drawnItems = new L.FeatureGroup();
 
@@ -73,6 +73,7 @@
 
             //Handle map instantiation stuffs
             uiGmapGoogleMapApi.then(function(maps) {
+                console.log('maps api is ready');
                 vm.data.map.drawingManagerOptions = {
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
@@ -95,9 +96,10 @@
                 angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
                 angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
                 angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
+            });
 
-                console.log(vm.data.map.drawingManagerControl.getDrawingManager);
-
+            uiGmapIsReady.promise().then(function (maps){
+                console.log('map is ready');
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     var radius = circle.getRadius();
                     console.log(radius);
