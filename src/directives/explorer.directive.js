@@ -96,6 +96,8 @@
                 angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
                 angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
 
+                console.log(vm.data.map.drawingManagerControl.getDrawingManager);
+
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     var radius = circle.getRadius();
                     console.log(radius);
