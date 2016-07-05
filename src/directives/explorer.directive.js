@@ -57,7 +57,7 @@
                         latitude: 39.9612,
                         longitude: -82.9988
                     },
-                    zoom: 10,
+                    zoom: 11,
                     drawingManagerOptions: {},
                     drawingManagerControl: {},
                     bounds: {},
@@ -105,8 +105,10 @@
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
                     var points = [];
                     for (var i = 0; i < polygon.getPath().getLength(); i++) {
-                        points.push(polygon.getPath().getAt(i).toUrlValue(6));
+                        coord = polygon.getPath().getAt(i);
+                        points.push({lat:coord.lat(), lng: coord.lng()});
                     }
+                    console.log(points);
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
