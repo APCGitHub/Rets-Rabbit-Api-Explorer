@@ -13,7 +13,7 @@
                 someElement = angular.element(document.getElementById('rr-query-results')),
                 shapeProps = {
                     fillColor: '#ec6952',
-                    fillOpacity: 0.3,
+                    fillOpacity: 0.5,
                     editable: true,
                     zIndex: 1,
                     clickable: false,
@@ -42,6 +42,7 @@
                 }
             });
 
+            //Set the view model data
             vm.data = {
                 searchForm: {
                     select: '',
@@ -51,6 +52,7 @@
                     skip: ''
                 },
                 map: {
+                    //Columbus
                     center: {
                         latitude: 39.9612,
                         longitude: -82.9988
@@ -69,8 +71,8 @@
                 query_time: -1
             };
 
+            //Handle map instantiation stuffs
             uiGmapGoogleMapApi.then(function(maps) {
-                console.log('google maps is ready now');
                 vm.data.map.drawingManagerOptions = {
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
@@ -85,12 +87,24 @@
                         ]
                     },
                     polygonOptions: {},
-                    circleOptions: {}
+                    circleOptions: {},
+                    events: {
+                        polygonEvents: {
+                            dblck: {
+
+                            }
+                        }
+                    }
                 };
 
+                //All shapes have the same settings
                 angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
                 angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
                 angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
+
+                google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+                    var radius = circle.getRadius();
+                });
             });
 
             /* --- Bind Method Handles --- */
