@@ -73,17 +73,14 @@
 
             //Handle map instantiation stuffs
             uiGmapGoogleMapApi.then(function(maps) {
-                console.log('maps api is ready');
                 vm.data.map.drawingManagerOptions = {
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
                     drawingControlOptions: {
                         position: google.maps.ControlPosition.TOP_CENTER,
                         drawingModes: [
-                            google.maps.drawing.OverlayType.MARKER,
                             google.maps.drawing.OverlayType.CIRCLE,
                             google.maps.drawing.OverlayType.POLYGON,
-                            google.maps.drawing.OverlayType.POLYLINE,
                             google.maps.drawing.OverlayType.RECTANGLE
                         ]
                     },
@@ -98,11 +95,18 @@
                 angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
             });
 
+            //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function (maps){
-                console.log('map is ready');
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
-                    var radius = circle.getRadius();
-                    console.log(radius);
+                    console.log(circle);
+                });
+
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
+                    console.log(polygon);
+                });
+
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
+                    console.log(rectangle);
                 });
             });
 
