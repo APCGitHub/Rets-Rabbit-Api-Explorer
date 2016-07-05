@@ -67,9 +67,7 @@
 
             /* --- Center the map --- */
             leafletData.getMap().then(function(map) {
-                console.log('leaflet got map');
-                console.log(map);
-                L.GeoIP.centerMapOnPosition(map, 15);
+                //L.GeoIP.centerMapOnPosition(map, 15);
             });
 
             /* --- Methods --- */
