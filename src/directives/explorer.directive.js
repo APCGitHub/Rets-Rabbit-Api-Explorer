@@ -356,7 +356,9 @@
                 points.push({ lat: SW.lat(), lng: NE.lng() });
                 points.push({ lat: SW.lat(), lng: SW.lng() });
 
-                if (!isNull) {
+                console.log(points);
+
+                if (isNull) {
                     google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function() {
                         console.log('bounds changed');
                         var points = [];
