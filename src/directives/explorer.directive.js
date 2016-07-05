@@ -43,8 +43,8 @@
                 },
                 map: {
                     center: {
-                        lat: 39.9612,
-                        lng: 82.9988,
+                        lat: 82.9988,
+                        lng: 39.9612,
                         zoom: 3
                     }
                 },
@@ -67,7 +67,7 @@
 
             /* --- Center the map --- */
             leafletData.getMap('rr-map').then(function(map) {
-                L.GeoIP.centerMapOnPosition(map, 15);
+                //L.GeoIP.centerMapOnPosition(map, 15);
             });
 
             /* --- Methods --- */
