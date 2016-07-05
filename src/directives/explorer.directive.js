@@ -15,6 +15,7 @@
                     fillColor: '#ec6952',
                     fillOpacity: 0.5,
                     editable: true,
+                    draggable: true,
                     zIndex: 1,
                     clickable: false,
                     strokeWeight: 3
@@ -114,10 +115,17 @@
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
                     var points = [];
-                    for (var i = 0; i < rectangle.getPath().getLength(); i++) {
-                        var coord = rectangle.getPath().getAt(i);
-                        points.push({lat:coord.lat(), lng: coord.lng()});
-                    }
+                    var bounds = rectangle.getBounds();
+                    var NE = bounds.getNorthEast();
+                    var SE = bounds.getNorthEast();
+                    var NW = bounds.getNorthWest();
+                    var SW = bounds.getSouthWest();
+
+                    points.push({lat: NW.lat(), lng: NW.lng()});
+                    points.push({lat: NE.lat(), lng: NE.lng()});
+                    points.push({lat: SE.lat(), lng: SE.lng()});
+                    points.push({lat: SW.lat(), lng: SW.lng()});
+                    console.log(points);
                 });
             });
 
