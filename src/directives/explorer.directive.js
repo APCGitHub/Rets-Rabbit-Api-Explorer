@@ -144,12 +144,6 @@
                 //     points.push({ lat: SW.lat(), lng: NE.lng() });
                 //     points.push({ lat: SW.lat(), lng: SW.lng() });
                 // });
-
-                //shape drag end
-                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'dragend', function(shape) {
-                    console.log('dragged');
-                    console.log(shape);
-                });
             });
 
             /* --- Bind Method Handles --- */
@@ -326,7 +320,28 @@
                 }
             }
 
+            function _clearShapes(shape){
+                switch(shape){
+                    case 1: //circle
+                        vm.data.map.shape.rectangle = null;
+                        vm.data.map.shape.polygon = null;
+                    break;
+
+                    case 2: //rectangle
+                        vm.data.map.shape.circle = null;
+                        vm.data.map.shape.polygon = null;
+                    break;
+
+                    case 3: //polygon
+                        vm.data.map.shape.circle = null;
+                        vm.data.map.shape.rectangle = null;
+                    break;
+                }
+            }
+
             function _circle(circle) {
+                _clearShapes(1);
+
                 var isNull = vm.data.map.shape.circle === null ? true : false;
                 vm.data.map.shape.circle = circle;
                 var radius = circle.getRadius();
@@ -337,15 +352,15 @@
                     //circle radius change
                     google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function() {
                         console.log('radius change');
-                        var radius = circle.getRadius();
-                        var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+                        var radius = vm.data.map.shape.circle.getRadius();
+                        var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.circle, 'dragend', function() {
                         console.log('dragend change');
-                        var radius = circle.getRadius();
-                        var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+                        var radius = vm.data.map.shape.circle.getRadius();
+                        var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
                 }
