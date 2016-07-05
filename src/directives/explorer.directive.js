@@ -105,7 +105,7 @@
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
                     var points = [];
                     for (var i = 0; i < polygon.getPath().getLength(); i++) {
-                        coord = polygon.getPath().getAt(i);
+                        var coord = polygon.getPath().getAt(i);
                         points.push({lat:coord.lat(), lng: coord.lng()});
                     }
                     console.log(points);
