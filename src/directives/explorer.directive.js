@@ -45,7 +45,7 @@
                     center: {
                         lat: 39.9612,
                         lng: 82.9988,
-                        zoom: 8
+                        zoom: 3
                     }
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
@@ -66,8 +66,8 @@
             vm.updateQuery = _buildQuery;
 
             /* --- Center the map --- */
-            leafletData.getMap().then(function(map) {
-                //L.GeoIP.centerMapOnPosition(map, 15);
+            leafletData.getMap('rr-map').then(function(map) {
+                L.GeoIP.centerMapOnPosition(map, 15);
             });
 
             /* --- Methods --- */
