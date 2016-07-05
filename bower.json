@@ -18,8 +18,8 @@
     "rets-rabbit-angular": "*",
     "angular-scroll": "^1.0.0",
     "angular-animate": "^1.5.7",
-    "ui-leaflet": "^1.0.1",
-    "ui-leaflet-draw": "^0.0.3"
+    "ui-leaflet": "^1.0.0",
+    "ui-leaflet-draw": "^0.0.1"
   },
   "license": "ISC",
   "homepage": "",
