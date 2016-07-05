@@ -287,6 +287,7 @@
                 deletestop: function(arg) {}
             };
             var drawEvents = leafletDrawEvents.getAvailableEvents();
+            console.log(drawEvents);
             drawEvents.forEach(function(eventName) {
                 $scope.$on('leafletDirectiveDraw.' + eventName, function(e, payload) {
                     //{leafletEvent, leafletObject, model, modelName} = payload
