@@ -269,7 +269,7 @@
             }
 
             //LEAFLET controls
-            var handle = {
+            /*var handle = {
                 created: function(e, leafletEvent, leafletObject, model, modelName) {
                     drawnItems.addLayer(leafletEvent.layer);
                 },
@@ -297,6 +297,7 @@
                     handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
                 });
             });
+            */
         }];
 
         return {
