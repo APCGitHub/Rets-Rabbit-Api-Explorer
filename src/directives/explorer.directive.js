@@ -10,7 +10,15 @@
         var controller = ['$scope', '$interval', '$document', 'PropertyFactory', /*'leafletData', 'leafletDrawEvents',*/ 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, /*leafletData, leafletDrawEvents,*/ uiGmapGoogleMapApi) {
             var vm = this,
                 promise,
-                someElement = angular.element(document.getElementById('rr-query-results'));
+                someElement = angular.element(document.getElementById('rr-query-results')),
+                shapeProps = {
+                    fillColor: '#ec6952',
+                    fillOpacity: 0.3,
+                    editable: true,
+                    zIndex: 1,
+                    clickable: false,
+                    strokeWeight: 5
+                };
             //drawnItems = new L.FeatureGroup();
 
             //Watch for when the search attribute value changes from the parent scope
@@ -49,7 +57,8 @@
                     },
                     zoom: 10,
                     drawingManagerOptions: {},
-                    drawingManagerControl: {}
+                    drawingManagerControl: {},
+                    bounds: {}
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -75,15 +84,13 @@
                             google.maps.drawing.OverlayType.RECTANGLE
                         ]
                     },
-                    circleOptions: {
-                        fillColor: '#ffff00',
-                        fillOpacity: 1,
-                        strokeWeight: 5,
-                        clickable: false,
-                        editable: true,
-                        zIndex: 1
-                    }
+                    polygonOptions: {},
+                    circleOptions: {}
                 };
+
+                angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
+                angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
+                angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
             });
 
             /* --- Bind Method Handles --- */
