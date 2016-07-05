@@ -7,15 +7,15 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', /*'leafletData', 'leafletDrawEvents',*/ 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, /*leafletData, leafletDrawEvents,*/ uiGmapGoogleMapApi) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', /*'leafletData', 'leafletDrawEvents', 'uiGmapGoogleMapApi',*/ function($scope, $interval, $document, PropertyFactory /*leafletData, leafletDrawEvents, uiGmapGoogleMapApi*/) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results'));
             //drawnItems = new L.FeatureGroup();
 
-            uiGmapGoogleMapApi.then(function(maps) {
-                console.log('hallo');
-            });
+            // uiGmapGoogleMapApi.then(function(maps) {
+            //     console.log('hallo');
+            // });
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
