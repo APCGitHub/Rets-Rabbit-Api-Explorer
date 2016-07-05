@@ -100,6 +100,8 @@
             uiGmapIsReady.promise().then(function(maps) {
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     console.log(circle);
+                    var radius = circle.getRadius();
+                    console.log(radius);
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
@@ -112,8 +114,8 @@
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
                     var points = [];
-                    for (var i = 0; i < polygon.getPath().getLength(); i++) {
-                        var coord = polygon.getPath().getAt(i);
+                    for (var i = 0; i < rectangle.getPath().getLength(); i++) {
+                        var coord = rectangle.getPath().getAt(i);
                         points.push({lat:coord.lat(), lng: coord.lng()});
                     }
                 });
