@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', 'leafletDrawEvents', 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, leafletData, leafletDrawEvents, uiGmapGoogleMapApi) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', /*'leafletData', 'leafletDrawEvents',*/ 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, /*leafletData, leafletDrawEvents,*/ uiGmapGoogleMapApi) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results'));
