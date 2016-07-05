@@ -131,7 +131,7 @@
     </div>
     <div class="row">
     	<!-- RESULTS -->
-        <div class="col-md-6 col-sm-12" id="rr-query-results">
+        <div class="col-md-10 col-md-offset-1 col-sm-12" id="rr-query-results">
             <h3 class="text-center">
 				Results
 				<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span>
@@ -147,9 +147,6 @@
             <div ng-if="!vm.data.error && !vm.data.results && !vm.data.searching">
                 <code class="text-center" style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
             </div>
-        </div>
-        <div class="col-md-6 col-sm-12" id="rr-map">
-        	map here
         </div>
     </div>
 </div>
