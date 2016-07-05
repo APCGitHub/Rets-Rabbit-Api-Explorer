@@ -111,39 +111,13 @@
 
                 //polygon finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
-                    var points = [];
-                    for (var i = 0; i < polygon.getPath().getLength(); i++) {
-                        var coord = polygon.getPath().getAt(i);
-                        points.push({ lat: coord.lat(), lng: coord.lng() });
-                    }
+                    _polygon(polygon);
                 });
 
                 //rectangle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
-                    vm.data.map.shape.rectangle = rectangle;
-                    var points = [];
-                    var bounds = rectangle.getBounds();
-                    var NE = bounds.getNorthEast();
-                    var SW = bounds.getSouthWest();
-
-                    points.push({ lat: NE.lat(), lng: SW.lng() });
-                    points.push({ lat: NE.lat(), lng: NE.lng() });
-                    points.push({ lat: SW.lat(), lng: NE.lng() });
-                    points.push({ lat: SW.lat(), lng: SW.lng() });
+                    _rectangle(rectangle);
                 });
-
-                // google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function(rectangle) {
-                //     console.log('bounds changed');
-                //     var points = [];
-                //     var bounds = rectangle.getBounds();
-                //     var NE = bounds.getNorthEast();
-                //     var SW = bounds.getSouthWest();
-
-                //     points.push({ lat: NE.lat(), lng: SW.lng() });
-                //     points.push({ lat: NE.lat(), lng: NE.lng() });
-                //     points.push({ lat: SW.lat(), lng: NE.lng() });
-                //     points.push({ lat: SW.lat(), lng: SW.lng() });
-                // });
             });
 
             /* --- Bind Method Handles --- */
@@ -320,22 +294,22 @@
                 }
             }
 
-            function _clearShapes(shape){
-                switch(shape){
+            function _clearShapes(shape) {
+                switch (shape) {
                     case 1: //circle
                         vm.data.map.shape.rectangle = null;
                         vm.data.map.shape.polygon = null;
-                    break;
+                        break;
 
                     case 2: //rectangle
                         vm.data.map.shape.circle = null;
                         vm.data.map.shape.polygon = null;
-                    break;
+                        break;
 
                     case 3: //polygon
                         vm.data.map.shape.circle = null;
                         vm.data.map.shape.rectangle = null;
-                    break;
+                        break;
                 }
             }
 
@@ -363,6 +337,51 @@
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
+                }
+            }
+
+            function _rectangle(rectangle) {
+                _clearShapes(2);
+
+                var isNull = vm.data.map.shape.rectangle === null ? true : false;
+                vm.data.map.shape.rectangle = rectangle;
+
+                var points = [];
+                var bounds = rectangle.getBounds();
+                var NE = bounds.getNorthEast();
+                var SW = bounds.getSouthWest();
+
+                points.push({ lat: NE.lat(), lng: SW.lng() });
+                points.push({ lat: NE.lat(), lng: NE.lng() });
+                points.push({ lat: SW.lat(), lng: NE.lng() });
+                points.push({ lat: SW.lat(), lng: SW.lng() });
+
+                if (!isNull) {
+                    google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function() {
+                        console.log('bounds changed');
+                        var points = [];
+                        var bounds = vm.data.map.shape.rectangle.getBounds();
+                        var NE = bounds.getNorthEast();
+                        var SW = bounds.getSouthWest();
+
+                        points.push({ lat: NE.lat(), lng: SW.lng() });
+                        points.push({ lat: NE.lat(), lng: NE.lng() });
+                        points.push({ lat: SW.lat(), lng: NE.lng() });
+                        points.push({ lat: SW.lat(), lng: SW.lng() });
+                    });
+                }
+            }
+
+            function _polygon(polygon) {
+                _clearShapes(3);
+
+                var isNull = vm.data.map.shape.polygon === null ? true : false;
+                vm.data.map.shape.polygon = polygon;
+
+                var points = [];
+                for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                    var coord = polygon.getPath().getAt(i);
+                    points.push({ lat: coord.lat(), lng: coord.lng() });
                 }
             }
         }];
