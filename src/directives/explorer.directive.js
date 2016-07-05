@@ -62,7 +62,6 @@
 
             uiGmapGoogleMapApi.then(function(maps) {
                 console.log('google maps is ready now');
-                console.log(maps);
                 vm.data.map.drawingManagerOptions = {
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
