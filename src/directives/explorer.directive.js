@@ -287,9 +287,9 @@
                 deletestop: function(arg) {}
             };
             var drawEvents = leafletDrawEvents.getAvailableEvents();
-            console.log(drawEvents);
             drawEvents.forEach(function(eventName) {
                 $scope.$on('leafletDirectiveDraw.' + eventName, function(e, payload) {
+                    console.log(eventName);
                     //{leafletEvent, leafletObject, model, modelName} = payload
                     var leafletEvent, leafletObject, model, modelName; //destructuring not supported by chrome yet :(
                     leafletEvent = payload.leafletEvent, leafletObject = payload.leafletObject, model = payload.model,
