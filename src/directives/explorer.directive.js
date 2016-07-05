@@ -45,7 +45,7 @@
                     center: {
                         lat: 39.9612,
                         lng: -82.9988,
-                        zoom: 3
+                        zoom: 10
                     }
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
