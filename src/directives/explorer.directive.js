@@ -103,14 +103,14 @@
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     var radius = circle.getRadius();
                     var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
-                    console.log(pos + ' ' + radius);
+                    console.log(JSON.stringify(pos) + ' ' + radius);
                 });
 
                 //circle radius change
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'radius_changed', function(circle) {
                     var radius = circle.getRadius();
                     var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
-                    console.log(pos + ' ' + radius);
+                    console.log(JSON.stringify(pos) + ' ' + radius);
                 });
 
                 //polygon finish
