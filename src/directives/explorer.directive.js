@@ -60,7 +60,8 @@
                     zoom: 10,
                     drawingManagerOptions: {},
                     drawingManagerControl: {},
-                    bounds: {}
+                    bounds: {},
+                    shape: null
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -103,6 +104,7 @@
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
                     console.log(polygon);
+                    console.log(polygon.latLngs)
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
