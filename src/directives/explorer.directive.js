@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', function($scope, $interval, $document, PropertyFactory, leafletData) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', 'leafletDrawEvents', function($scope, $interval, $document, PropertyFactory, leafletData, leafletDrawEvents) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results'));
@@ -46,6 +46,37 @@
                         lat: 39.9612,
                         lng: -82.9988,
                         zoom: 10
+                    },
+                    drawOptions: {
+                        position: "bottomright",
+                        draw: {
+                            polyline: {
+                                metric: false
+                            },
+                            polygon: {
+                                metric: false,
+                                showArea: true,
+                                drawError: {
+                                    color: '#b00b00',
+                                    timeout: 1000
+                                },
+                                shapeOptions: {
+                                    color: 'blue'
+                                }
+                            },
+                            circle: {
+                                showArea: true,
+                                metric: false,
+                                shapeOptions: {
+                                    color: '#662d91'
+                                }
+                            },
+                            marker: false
+                        },
+                        edit: {
+                            featureGroup: drawnItems,
+                            remove: true
+                        }
                     }
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
