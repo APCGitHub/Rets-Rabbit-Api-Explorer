@@ -106,18 +106,7 @@
             uiGmapIsReady.promise().then(function(maps) {
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
-                    vm.data.map.shape.circle = circle;
-                    var radius = circle.getRadius();
-                    var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
-                    console.log(JSON.stringify(pos) + ' ' + radius);
-                });
-
-                //circle radius change
-                google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function(circle) {
-                    console.log('radius change');
-                    var radius = circle.getRadius();
-                    var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
-                    console.log(JSON.stringify(pos) + ' ' + radius);
+                    _circle(circle);
                 });
 
                 //polygon finish
@@ -125,7 +114,7 @@
                     var points = [];
                     for (var i = 0; i < polygon.getPath().getLength(); i++) {
                         var coord = polygon.getPath().getAt(i);
-                        points.push({lat:coord.lat(), lng: coord.lng()});
+                        points.push({ lat: coord.lat(), lng: coord.lng() });
                     }
                 });
 
@@ -137,10 +126,10 @@
                     var NE = bounds.getNorthEast();
                     var SW = bounds.getSouthWest();
 
-                    points.push({lat: NE.lat(), lng: SW.lng()});
-                    points.push({lat: NE.lat(), lng: NE.lng()});
-                    points.push({lat: SW.lat(), lng: NE.lng()});
-                    points.push({lat: SW.lat(), lng: SW.lng()});
+                    points.push({ lat: NE.lat(), lng: SW.lng() });
+                    points.push({ lat: NE.lat(), lng: NE.lng() });
+                    points.push({ lat: SW.lat(), lng: NE.lng() });
+                    points.push({ lat: SW.lat(), lng: SW.lng() });
                 });
 
                 google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function(rectangle) {
@@ -150,10 +139,10 @@
                     var NE = bounds.getNorthEast();
                     var SW = bounds.getSouthWest();
 
-                    points.push({lat: NE.lat(), lng: SW.lng()});
-                    points.push({lat: NE.lat(), lng: NE.lng()});
-                    points.push({lat: SW.lat(), lng: NE.lng()});
-                    points.push({lat: SW.lat(), lng: SW.lng()});
+                    points.push({ lat: NE.lat(), lng: SW.lng() });
+                    points.push({ lat: NE.lat(), lng: NE.lng() });
+                    points.push({ lat: SW.lat(), lng: NE.lng() });
+                    points.push({ lat: SW.lat(), lng: SW.lng() });
                 });
 
                 //shape drag end
@@ -337,35 +326,20 @@
                 }
             }
 
-            //LEAFLET controls
-            /* var handle = {
-                 created: function(e, leafletEvent, leafletObject, model, modelName) {
-                     drawnItems.addLayer(leafletEvent.layer);
-                 },
-                 edited: function(arg) {},
-                 deleted: function(arg) {
-                     var layers;
-                     layers = arg.layers;
-                     drawnItems.removeLayer(layer);
-                 },
-                 drawstart: function(arg) {},
-                 drawstop: function(arg) {},
-                 editstart: function(arg) {},
-                 editstop: function(arg) {},
-                 deletestart: function(arg) {},
-                 deletestop: function(arg) {}
-             };
-             var drawEvents = leafletDrawEvents.getAvailableEvents();
-             drawEvents.forEach(function(eventName) {
-                 $scope.$on('leafletDirectiveDraw.' + eventName, function(e, payload) {
-                     console.log(eventName);
-                     //{leafletEvent, leafletObject, model, modelName} = payload
-                     var leafletEvent, leafletObject, model, modelName; //destructuring not supported by chrome yet :(
-                     leafletEvent = payload.leafletEvent, leafletObject = payload.leafletObject, model = payload.model,
-                         modelName = payload.modelName;
-                     handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
-                 });
-             });*/
+            function _circle(circle) {
+                vm.data.map.shape.circle = circle;
+                var radius = circle.getRadius();
+                var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+                console.log(JSON.stringify(pos) + ' ' + radius);
+
+                //circle radius change
+                google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function(circle) {
+                    console.log('radius change');
+                    var radius = circle.getRadius();
+                    var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+                    console.log(JSON.stringify(pos) + ' ' + radius);
+                });
+            }
         }];
 
         return {
