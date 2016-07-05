@@ -18,7 +18,8 @@
                     draggable: true,
                     zIndex: 1,
                     clickable: false,
-                    strokeWeight: 3
+                    strokeWeight: 3,
+                    geodesic: true
                 };
             //drawnItems = new L.FeatureGroup();
 
@@ -62,7 +63,11 @@
                     drawingManagerOptions: {},
                     drawingManagerControl: {},
                     bounds: {},
-                    shape: null
+                    shape: {
+                        circle: null,
+                        rectangle: null,
+                        polygon: null
+                    }
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -101,13 +106,14 @@
             uiGmapIsReady.promise().then(function(maps) {
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
+                    vm.data.map.shape.circle = circle;
                     var radius = circle.getRadius();
                     var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
                     console.log(JSON.stringify(pos) + ' ' + radius);
                 });
 
                 //circle radius change
-                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'radius_changed', function(circle) {
+                google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function(circle) {
                     console.log('radius change');
                     var radius = circle.getRadius();
                     var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
@@ -125,6 +131,20 @@
 
                 //rectangle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
+                    vm.data.map.shape.rectangle = rectangle;
+                    var points = [];
+                    var bounds = rectangle.getBounds();
+                    var NE = bounds.getNorthEast();
+                    var SW = bounds.getSouthWest();
+
+                    points.push({lat: NE.lat(), lng: SW.lng()});
+                    points.push({lat: NE.lat(), lng: NE.lng()});
+                    points.push({lat: SW.lat(), lng: NE.lng()});
+                    points.push({lat: SW.lat(), lng: SW.lng()});
+                });
+
+                google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function(rectangle) {
+                    console.log('bounds changed');
                     var points = [];
                     var bounds = rectangle.getBounds();
                     var NE = bounds.getNorthEast();
