@@ -333,10 +333,11 @@
                 console.log(JSON.stringify(pos) + ' ' + radius);
 
                 //circle radius change
-                google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function(circle) {
+                google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function(_circle) {
                     console.log('radius change');
-                    var radius = circle.getRadius();
-                    var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+                    console.log(_circle);
+                    var radius = _circle.getRadius();
+                    var pos = { lat: _circle.center.lat(), lng: _circle.center.lng() };
                     console.log(JSON.stringify(pos) + ' ' + radius);
                 });
             }
