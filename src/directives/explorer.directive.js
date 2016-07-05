@@ -108,11 +108,14 @@
                         var coord = polygon.getPath().getAt(i);
                         points.push({lat:coord.lat(), lng: coord.lng()});
                     }
-                    console.log(points);
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
-                    console.log(rectangle);
+                    var points = [];
+                    for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                        var coord = polygon.getPath().getAt(i);
+                        points.push({lat:coord.lat(), lng: coord.lng()});
+                    }
                 });
             });
 
