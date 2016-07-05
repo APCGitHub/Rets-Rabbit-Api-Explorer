@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', function($scope, $interval, $document, PropertyFactory, leafletData) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results'));
@@ -41,6 +41,13 @@
                     top: '',
                     skip: ''
                 },
+                map: {
+                    center: {
+                        lat: 39.9612,
+                        lng: 82.9988,
+                        zoom: 8
+                    }
+                },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
                 results: null,
@@ -57,6 +64,11 @@
             vm.addOrderby = _addOrderby;
             vm.removeOrderby = _removeOrderby;
             vm.updateQuery = _buildQuery;
+
+            /* --- Center the map --- */
+            leafletData.getMap().then(function(map) {
+                L.GeoIP.centerMapOnPosition(map, 15);
+            });
 
             /* --- Methods --- */
             function _search(valid) {
