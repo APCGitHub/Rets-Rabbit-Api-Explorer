@@ -7,13 +7,15 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', 'leafletDrawEvents', function($scope, $interval, $document, PropertyFactory, leafletData, leafletDrawEvents) {
+        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'leafletData', 'leafletDrawEvents', 'uiGmapGoogleMapApi', function($scope, $interval, $document, PropertyFactory, leafletData, leafletDrawEvents, uiGmapGoogleMapApi) {
             var vm = this,
                 promise,
-                someElement = angular.element(document.getElementById('rr-query-results')),
-                drawnItems = new L.FeatureGroup();
+                someElement = angular.element(document.getElementById('rr-query-results'));
+            //drawnItems = new L.FeatureGroup();
 
-                console.log(drawnItems);
+            uiGmapGoogleMapApi.then(function(maps) {
+                console.log('hallo');
+            });
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -47,40 +49,9 @@
                 map: {
                     center: {
                         lat: 39.9612,
-                        lng: -82.9988,
-                        zoom: 10
+                        lng: -82.9988
                     },
-                    drawOptions: {
-                        position: "bottomright",
-                        draw: {
-                            polyline: {
-                                metric: false
-                            },
-                            polygon: {
-                                metric: false,
-                                showArea: true,
-                                drawError: {
-                                    color: '#b00b00',
-                                    timeout: 1000
-                                },
-                                shapeOptions: {
-                                    color: 'blue'
-                                }
-                            },
-                            circle: {
-                                showArea: true,
-                                metric: false,
-                                shapeOptions: {
-                                    color: '#662d91'
-                                }
-                            },
-                            marker: false
-                        },
-                        edit: {
-                            featureGroup: drawnItems,
-                            remove: true
-                        }
-                    }
+                    zoom: 10
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -271,34 +242,34 @@
             }
 
             //LEAFLET controls
-            var handle = {
-                created: function(e, leafletEvent, leafletObject, model, modelName) {
-                    drawnItems.addLayer(leafletEvent.layer);
-                },
-                edited: function(arg) {},
-                deleted: function(arg) {
-                    var layers;
-                    layers = arg.layers;
-                    drawnItems.removeLayer(layer);
-                },
-                drawstart: function(arg) {},
-                drawstop: function(arg) {},
-                editstart: function(arg) {},
-                editstop: function(arg) {},
-                deletestart: function(arg) {},
-                deletestop: function(arg) {}
-            };
-            var drawEvents = leafletDrawEvents.getAvailableEvents();
-            drawEvents.forEach(function(eventName) {
-                $scope.$on('leafletDirectiveDraw.' + eventName, function(e, payload) {
-                    console.log(eventName);
-                    //{leafletEvent, leafletObject, model, modelName} = payload
-                    var leafletEvent, leafletObject, model, modelName; //destructuring not supported by chrome yet :(
-                    leafletEvent = payload.leafletEvent, leafletObject = payload.leafletObject, model = payload.model,
-                        modelName = payload.modelName;
-                    handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
-                });
-            });
+            /* var handle = {
+                 created: function(e, leafletEvent, leafletObject, model, modelName) {
+                     drawnItems.addLayer(leafletEvent.layer);
+                 },
+                 edited: function(arg) {},
+                 deleted: function(arg) {
+                     var layers;
+                     layers = arg.layers;
+                     drawnItems.removeLayer(layer);
+                 },
+                 drawstart: function(arg) {},
+                 drawstop: function(arg) {},
+                 editstart: function(arg) {},
+                 editstop: function(arg) {},
+                 deletestart: function(arg) {},
+                 deletestop: function(arg) {}
+             };
+             var drawEvents = leafletDrawEvents.getAvailableEvents();
+             drawEvents.forEach(function(eventName) {
+                 $scope.$on('leafletDirectiveDraw.' + eventName, function(e, payload) {
+                     console.log(eventName);
+                     //{leafletEvent, leafletObject, model, modelName} = payload
+                     var leafletEvent, leafletObject, model, modelName; //destructuring not supported by chrome yet :(
+                     leafletEvent = payload.leafletEvent, leafletObject = payload.leafletObject, model = payload.model,
+                         modelName = payload.modelName;
+                     handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
+                 });
+             });*/
         }];
 
         return {
