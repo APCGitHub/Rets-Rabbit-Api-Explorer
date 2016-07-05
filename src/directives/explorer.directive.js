@@ -99,12 +99,21 @@
 
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
+                //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
-                    console.log(circle);
                     var radius = circle.getRadius();
-                    console.log(radius);
+                    var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
+                    console.log(pos + ' ' + radius);
                 });
 
+                //circle radius change
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'radius_changed', function(circle) {
+                    var radius = circle.getRadius();
+                    var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
+                    console.log(pos + ' ' + radius);
+                });
+
+                //polygon finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
                     var points = [];
                     for (var i = 0; i < polygon.getPath().getLength(); i++) {
@@ -113,6 +122,7 @@
                     }
                 });
 
+                //rectangle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
                     var points = [];
                     var bounds = rectangle.getBounds();
@@ -121,9 +131,13 @@
 
                     points.push({lat: NE.lat(), lng: SW.lng()});
                     points.push({lat: NE.lat(), lng: NE.lng()});
-                    points.push({lat: NE.lat(), lng: SW.lng()});
+                    points.push({lat: SW.lat(), lng: NE.lng()});
                     points.push({lat: SW.lat(), lng: SW.lng()});
-                    console.log(points);
+                });
+
+                //shape drag end
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'dragend', function(shape) {
+                    console.log(shape);
                 });
             });
 
