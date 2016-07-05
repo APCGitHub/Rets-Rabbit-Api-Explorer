@@ -97,14 +97,16 @@
             });
 
             //Map UI is loaded so hook up event listeners
-            uiGmapIsReady.promise().then(function (maps){
+            uiGmapIsReady.promise().then(function(maps) {
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     console.log(circle);
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
-                    console.log(polygon);
-                    console.log(polygon.latLngs)
+                    var points = [];
+                    for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                        points.push(polygon.getPath().getAt(i).toUrlValue(6));
+                    }
                 });
 
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
