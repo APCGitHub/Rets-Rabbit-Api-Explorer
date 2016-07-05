@@ -10,7 +10,7 @@
         var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
             var vm = this,
                 promise,
-                someElement = angular.element(document.getElementById('query-results'));
+                someElement = angular.element(document.getElementById('rr-query-results'));
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
