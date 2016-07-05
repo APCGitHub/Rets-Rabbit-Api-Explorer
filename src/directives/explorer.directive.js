@@ -44,8 +44,8 @@
                 },
                 map: {
                     center: {
-                        lat: 39.9612,
-                        lng: -82.9988
+                        latitude: 39.9612,
+                        longitude: -82.9988
                     },
                     zoom: 10,
                     drawingManagerOptions: {},
