@@ -13,10 +13,6 @@
                 someElement = angular.element(document.getElementById('rr-query-results'));
             //drawnItems = new L.FeatureGroup();
 
-            uiGmapGoogleMapApi.then(function(maps) {
-                console.log('hallo');
-            });
-
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
                 return this.search;
@@ -52,28 +48,7 @@
                         lng: -82.9988
                     },
                     zoom: 10,
-                    drawingManagerOptions: {
-                        drawingMode: google.maps.drawing.OverlayType.MARKER,
-                        drawingControl: true,
-                        drawingControlOptions: {
-                            position: google.maps.ControlPosition.TOP_CENTER,
-                            drawingModes: [
-                                google.maps.drawing.OverlayType.MARKER,
-                                google.maps.drawing.OverlayType.CIRCLE,
-                                google.maps.drawing.OverlayType.POLYGON,
-                                google.maps.drawing.OverlayType.POLYLINE,
-                                google.maps.drawing.OverlayType.RECTANGLE
-                            ]
-                        },
-                        circleOptions: {
-                            fillColor: '#ffff00',
-                            fillOpacity: 1,
-                            strokeWeight: 5,
-                            clickable: false,
-                            editable: true,
-                            zIndex: 1
-                        }
-                    },
+                    drawingManagerOptions: {},
                     drawingManagerControl: {}
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
@@ -84,6 +59,33 @@
                 searching: false,
                 query_time: -1
             };
+
+            uiGmapGoogleMapApi.then(function(maps) {
+                console.log('google maps is ready now');
+                console.log(maps);
+                vm.data.map.drawingManagerOptions = {
+                    drawingMode: google.maps.drawing.OverlayType.MARKER,
+                    drawingControl: true,
+                    drawingControlOptions: {
+                        position: google.maps.ControlPosition.TOP_CENTER,
+                        drawingModes: [
+                            google.maps.drawing.OverlayType.MARKER,
+                            google.maps.drawing.OverlayType.CIRCLE,
+                            google.maps.drawing.OverlayType.POLYGON,
+                            google.maps.drawing.OverlayType.POLYLINE,
+                            google.maps.drawing.OverlayType.RECTANGLE
+                        ]
+                    },
+                    circleOptions: {
+                        fillColor: '#ffff00',
+                        fillOpacity: 1,
+                        strokeWeight: 5,
+                        clickable: false,
+                        editable: true,
+                        zIndex: 1
+                    }
+                };
+            });
 
             /* --- Bind Method Handles --- */
             vm.doSearch = _search;
