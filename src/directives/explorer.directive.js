@@ -132,18 +132,18 @@
                     points.push({ lat: SW.lat(), lng: SW.lng() });
                 });
 
-                google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function(rectangle) {
-                    console.log('bounds changed');
-                    var points = [];
-                    var bounds = rectangle.getBounds();
-                    var NE = bounds.getNorthEast();
-                    var SW = bounds.getSouthWest();
+                // google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function(rectangle) {
+                //     console.log('bounds changed');
+                //     var points = [];
+                //     var bounds = rectangle.getBounds();
+                //     var NE = bounds.getNorthEast();
+                //     var SW = bounds.getSouthWest();
 
-                    points.push({ lat: NE.lat(), lng: SW.lng() });
-                    points.push({ lat: NE.lat(), lng: NE.lng() });
-                    points.push({ lat: SW.lat(), lng: NE.lng() });
-                    points.push({ lat: SW.lat(), lng: SW.lng() });
-                });
+                //     points.push({ lat: NE.lat(), lng: SW.lng() });
+                //     points.push({ lat: NE.lat(), lng: NE.lng() });
+                //     points.push({ lat: SW.lat(), lng: NE.lng() });
+                //     points.push({ lat: SW.lat(), lng: SW.lng() });
+                // });
 
                 //shape drag end
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'dragend', function(shape) {
