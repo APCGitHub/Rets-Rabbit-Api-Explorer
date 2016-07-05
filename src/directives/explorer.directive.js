@@ -108,6 +108,7 @@
 
                 //circle radius change
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'radius_changed', function(circle) {
+                    console.log('radius change');
                     var radius = circle.getRadius();
                     var pos = {lat: circle.center.lat(), lng: circle.center.lng()};
                     console.log(JSON.stringify(pos) + ' ' + radius);
@@ -137,6 +138,7 @@
 
                 //shape drag end
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'dragend', function(shape) {
+                    console.log('dragged');
                     console.log(shape);
                 });
             });
