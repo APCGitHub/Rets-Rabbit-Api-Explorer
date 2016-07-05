@@ -327,7 +327,7 @@
             }
 
             function _circle(circle) {
-                var isNull = circle === null ? true : false;
+                var isNull = vm.data.map.shape.circle === null ? true : false;
                 vm.data.map.shape.circle = circle;
                 var radius = circle.getRadius();
                 var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
