@@ -104,6 +104,7 @@
 
                 google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
                     var radius = circle.getRadius();
+                    console.log(radius);
                 });
             });
 
