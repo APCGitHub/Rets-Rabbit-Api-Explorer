@@ -117,13 +117,11 @@
                     var points = [];
                     var bounds = rectangle.getBounds();
                     var NE = bounds.getNorthEast();
-                    var SE = bounds.getNorthEast();
-                    var NW = bounds.getNorthWest();
                     var SW = bounds.getSouthWest();
 
-                    points.push({lat: NW.lat(), lng: NW.lng()});
+                    points.push({lat: NE.lat(), lng: SW.lng()});
                     points.push({lat: NE.lat(), lng: NE.lng()});
-                    points.push({lat: SE.lat(), lng: SE.lng()});
+                    points.push({lat: NE.lat(), lng: SW.lng()});
                     points.push({lat: SW.lat(), lng: SW.lng()});
                     console.log(points);
                 });
