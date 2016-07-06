@@ -327,7 +327,7 @@
                 vm.data.searchForm.geo.within.center = pos;
                 vm.data.searchForm.geo.within.distance = radius;
                 console.log('setting circle and building query');
-                console.log(vm.data.searchForm.go.within);
+                console.log(vm.data.searchForm.geo.within);
 
                 _buildQuery();
             }
