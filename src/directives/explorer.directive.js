@@ -533,7 +533,9 @@
                         });
                     }
 
-                    _buildQuery();
+                    $timeout(function () {
+                        _buildQuery();
+                    }, 1);
                 });
             }
         }];
