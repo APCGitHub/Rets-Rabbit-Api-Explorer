@@ -352,14 +352,12 @@
                     var listing = listings[i];
 
                     var marker = {
-                        id: i,
+                        id: (new Date()).getTime(),
                         coords: {
                             latitude: parseFloat(listing.listing.lat),
                             longitude: parseFloat(listing.listing.long)
                         }
                     };
-
-                    console.log(marker);
 
                     $timeout(function() {
                         vm.data.map.markers.push(marker);
