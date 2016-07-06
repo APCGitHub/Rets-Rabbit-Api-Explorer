@@ -102,6 +102,7 @@
 
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
+                var map = maps[0].map;
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     _circle(circle);
@@ -115,6 +116,10 @@
                 //rectangle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
                     _rectangle(rectangle);
+                });
+
+                map.addListener('click', function (e){
+                    console.log(e);
                 });
             });
 
@@ -370,22 +375,6 @@
                         points.push({ lat: SW.lat(), lng: SW.lng() });
                         console.log(points);
                     });
-
-                    //dragend fires after bounds_changed apparently so we don't need it
-
-                    // google.maps.event.addListener(vm.data.map.shape.rectangle, 'dragend', function() {
-                    //     console.log('rectangle drag changed');
-                    //     var points = [];
-                    //     var bounds = vm.data.map.shape.rectangle.getBounds();
-                    //     var NE = bounds.getNorthEast();
-                    //     var SW = bounds.getSouthWest();
-
-                    //     points.push({ lat: NE.lat(), lng: SW.lng() });
-                    //     points.push({ lat: NE.lat(), lng: NE.lng() });
-                    //     points.push({ lat: SW.lat(), lng: NE.lng() });
-                    //     points.push({ lat: SW.lat(), lng: SW.lng() });
-                    //     console.log(points);
-                    // });
                 }
             }
 
@@ -410,7 +399,6 @@
                             var coord = polygon.getPath().getAt(i);
                             points.push({ lat: coord.lat(), lng: coord.lng() });
                         }
-                        console.log(points);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function() {
@@ -419,8 +407,6 @@
                             var coord = polygon.getPath().getAt(i);
                             points.push({ lat: coord.lat(), lng: coord.lng() });
                         }
-
-                        console.log(points);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'remove_at', function() {
