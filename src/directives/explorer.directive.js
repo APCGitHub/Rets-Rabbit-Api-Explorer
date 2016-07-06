@@ -171,7 +171,9 @@
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
 
-                    _plotPoints(res.value);
+                    $timeout(function () {
+                        _plotPoints(res.value);
+                    }, 1);
                 }, function(err) {
                     $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
@@ -344,9 +346,7 @@
             }
 
             function _plotPoints(listings) {
-                $timeout(function () {
-                    vm.data.map.markers = [];
-                }, 1);
+                vm.data.map.markers = [];
 
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
@@ -359,9 +359,7 @@
                         }
                     };
 
-                    $timeout(function() {
-                        vm.data.map.markers.push(marker);
-                    }, 1);
+                    vm.data.map.markers.push(marker);
                 }
             }
 
