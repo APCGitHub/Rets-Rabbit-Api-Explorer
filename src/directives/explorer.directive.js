@@ -7,7 +7,7 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', 'uiGmapGoogleMapApi', 'uiGmapIsReady', function($scope, $interval, $document, PropertyFactory, uiGmapGoogleMapApi, uiGmapIsReady) {
+        var controller = ['$scope', '$interval', '$timeout', '$document', 'PropertyFactory', 'uiGmapGoogleMapApi', 'uiGmapIsReady', function($scope, $interval, $timeout, $document, PropertyFactory, uiGmapGoogleMapApi, uiGmapIsReady) {
             var vm = this,
                 promise,
                 someElement = angular.element(document.getElementById('rr-query-results')),
@@ -18,7 +18,8 @@
                     draggable: true,
                     strokeWeight: 3,
                     geodesic: true
-                }, gMap = null;
+                },
+                gMap = null;
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -50,8 +51,8 @@
                     top: '',
                     skip: '',
                     geo: {
-                        intersects: {points: []},
-                        within: {center: {}, distance: -1}
+                        intersects: { points: [] },
+                        within: { center: {}, distance: -1 }
                     }
                 },
                 map: {
@@ -240,10 +241,10 @@
                         if (i + 1 < vm.data.searchForm.filter.length)
                             _q += ' ';
                     }
-                    
+
                     //distance
-                    if(vm.data.searchForm.geo.within.distance > 0){
-                        if(vm.data.searchForm.filter.length)
+                    if (vm.data.searchForm.geo.within.distance > 0) {
+                        if (vm.data.searchForm.filter.length)
                             _q += ' and ';
 
                         _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
@@ -253,13 +254,13 @@
                     }
 
                     //intersects
-                    if(vm.data.searchForm.geo.intersects.points.length > 0){
-                        if(vm.data.searchForm.filter.length)
+                    if (vm.data.searchForm.geo.intersects.points.length > 0) {
+                        if (vm.data.searchForm.filter.length)
                             _q += ' and ';
 
                         _q += 'geo.intersects(location, POLYGON((';
 
-                        _q += vm.data.searchForm.geo.intersects.points.map(function (point){
+                        _q += vm.data.searchForm.geo.intersects.points.map(function(point) {
                             return point.lng + ' ' + point.lat;
                         }).join(', ');
 
@@ -309,7 +310,7 @@
 
                     _q += vm.data.searchForm.skip;
                 }
-                console.log(_q);
+
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
@@ -339,20 +340,24 @@
                 }
             }
 
-            function _setCircle(circle){
+            function _setCircle(circle) {
                 var radius = circle.getRadius();
                 var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
 
                 vm.data.searchForm.geo.within.center = pos;
                 vm.data.searchForm.geo.within.distance = radius;
 
-                _buildQuery();
+                $timeout(function() {
+                    _buildQuery();
+                }, 1);
             }
 
-            function _setIntersects(points){
+            function _setIntersects(points) {
                 vm.data.searchForm.geo.intersects.points = points;
 
-                _buildQuery();
+                $timeout(function() {
+                    _buildQuery();
+                }, 1);
             }
 
             function _clearShapes(shape) {
