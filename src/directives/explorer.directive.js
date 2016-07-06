@@ -98,7 +98,7 @@
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
                 var map = maps[0].map;
-                console.log(map);
+                
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     _circle(circle);
@@ -112,6 +112,20 @@
                 //rectangle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
                     _rectangle(rectangle);
+                });
+
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function(e) {
+                    var drawingManager = vm.data.map.drawingManagerControl.getDrawingManager();
+                    if (e.type != google.maps.drawing.OverlayType.MARKER) {
+                        // Switch back to non-drawing mode after drawing a shape.
+                        drawingManager.setDrawingMode(null);
+                        // To hide:
+                        drawingManager.setOptions({
+                            drawingControl: false
+                        });
+
+                        
+                    }
                 });
 
                 var rightControlDiv = document.createElement('div');
@@ -425,8 +439,10 @@
                 controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
                 controlUI.style.cursor = 'pointer';
                 controlUI.style.marginBottom = '22px';
+                controlUI.style.marginRight = '10px';
+                controlUI.style.marginTop = '10px';
                 controlUI.style.textAlign = 'center';
-                controlUI.title = 'Click to recenter the map';
+                controlUI.title = 'Click to delete current selected shape';
                 controlDiv.appendChild(controlUI);
 
                 // Set CSS for the control interior.
@@ -437,12 +453,12 @@
                 controlText.style.lineHeight = '38px';
                 controlText.style.paddingLeft = '5px';
                 controlText.style.paddingRight = '5px';
-                controlText.innerHTML = 'Center Map';
+                controlText.innerHTML = 'Delete Shape';
                 controlUI.appendChild(controlText);
 
-                // Setup the click event listeners: simply set the map to Chicago.
+                // Setup the click event listeners
                 controlUI.addEventListener('click', function() {
-                    console.log('hallo');
+
                 });
             }
         }];
