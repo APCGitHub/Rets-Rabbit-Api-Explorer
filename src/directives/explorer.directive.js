@@ -404,15 +404,16 @@
                 console.log(points);
 
                 if(isNull){
+                    console.log('was null');
                     vm.data.map.shape.polygon.addListener('set_at', function () {
                         console.log('set at');
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.polygon, 'set_at', function () {
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'set_at', function () {
                         console.log('set at 2');
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.polygon, 'insert_at', function () {
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function () {
                         console.log('insert at');
                     });
                 }
