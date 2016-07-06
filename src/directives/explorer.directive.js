@@ -345,7 +345,7 @@
                 var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
 
                 vm.data.searchForm.geo.within.center = pos;
-                vm.data.searchForm.geo.within.distance = radius / 111195;
+                vm.data.searchForm.geo.within.distance = radius / 111195; //force some fancy math
 
                 $timeout(function() {
                     _buildQuery();
