@@ -359,6 +359,8 @@
                         }
                     };
 
+                    console.log(marker);
+
                     $timeout(function() {
                         vm.data.map.markers.push(marker);
                     }, 1);
