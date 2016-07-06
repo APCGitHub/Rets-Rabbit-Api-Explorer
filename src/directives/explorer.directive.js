@@ -329,7 +329,7 @@
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
 
-                    vm.data.map.shape.circle.addListener('dragend', function () {
+                    google.maps.event.addListener(vm.data.map.shape.circle, 'drag', function() {
                         console.log('radius change');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
