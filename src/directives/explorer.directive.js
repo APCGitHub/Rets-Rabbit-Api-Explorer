@@ -309,7 +309,7 @@
 
                     _q += vm.data.searchForm.skip;
                 }
-
+                console.log(_q);
                 vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
