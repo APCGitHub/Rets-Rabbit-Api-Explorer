@@ -346,13 +346,15 @@
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
 
-                    console.log(JSON.stringify({lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long)}));
+                    console.log(JSON.stringify({ lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long) }));
 
-                    new google.maps.Marker({
-                        position: {lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long)},
-                        map: gMap,
-                        title: 'Listing: ' + i
-                    });
+                    $timeout(function() {
+                        new google.maps.Marker({
+                            position: { lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long) },
+                            map: gMap,
+                            title: 'Listing: ' + i
+                        });
+                    }, 1);
                 }
             }
 
