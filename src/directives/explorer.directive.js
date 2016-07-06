@@ -240,6 +240,11 @@
                         if (i + 1 < vm.data.searchForm.filter.length)
                             _q += ' ';
                     }
+
+                    //add geo
+                    if(vm.data.searchForm.geo.within.distance > 0){
+                        _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
+                    }
                 }
 
                 //orderby
