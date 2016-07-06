@@ -352,7 +352,7 @@
                     var listing = listings[i];
 
                     var marker = {
-                        id: listing.id,
+                        id: i,
                         coords: {
                             latitude: parseFloat(listing.listing.lat),
                             longitude: parseFloat(listing.listing.long)
