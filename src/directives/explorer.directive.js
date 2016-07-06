@@ -103,6 +103,7 @@
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
                 var map = maps[0].map;
+                console.log(map);
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     _circle(circle);
