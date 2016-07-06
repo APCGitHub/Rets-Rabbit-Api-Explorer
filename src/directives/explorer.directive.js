@@ -69,7 +69,8 @@
                         circle: null,
                         rectangle: null,
                         polygon: null
-                    }
+                    },
+                    markers: []
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -343,17 +344,23 @@
             }
 
             function _plotPoints(listings) {
+                $timeout(function () {
+                    vm.data.map.markers = [];
+                }, 1);
+
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
 
-                    console.log(JSON.stringify({ lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long) }));
+                    var marker = {
+                        id: listing.id,
+                        coords: {
+                            latitude: parseFloat(listing.listing.lat),
+                            longitude: parseFloat(listing.listing.long)
+                        }
+                    };
 
                     $timeout(function() {
-                        new google.maps.Marker({
-                            position: { lat: parseFloat(listing.listing.lat), lng: parseFloat(listing.listing.long) },
-                            map: gMap,
-                            title: 'Listing: ' + i
-                        });
+                        vm.data.map.markers.push(marker);
                     }, 1);
                 }
             }
