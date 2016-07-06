@@ -247,6 +247,8 @@
                             _q += ' and ';
 
                         _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
+
+                        $scope.$apply();
                     }
 
                     //intersects
@@ -254,13 +256,15 @@
                         if(vm.data.searchForm.filter.length)
                             _q += ' and ';
 
-                        _q += 'geo.distance(location, POLYGON((';
+                        _q += 'geo.intersects(location, POLYGON((';
 
                         _q += vm.data.searchForm.geo.intersects.points.map(function (point){
                             return point.lng + ' ' + point.lat;
                         }).join(', ');
 
                         _q += '))';
+
+                        $scope.$apply();
                     }
                 }
 
