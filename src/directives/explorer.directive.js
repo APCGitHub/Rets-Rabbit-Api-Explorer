@@ -222,7 +222,7 @@
                 }
 
                 //filter
-                if (vm.data.searchForm.filter.length) {
+                if (vm.data.searchForm.filter.length || vm.data.searchForm.geo.within.distance > 0) {
                     params[1] = 1;
 
                     if (params[0])
@@ -326,6 +326,7 @@
 
                 vm.data.searchForm.geo.within.center = pos;
                 vm.data.searchForm.geo.within.distance = radius;
+                console.log('setting circle and building query');
 
                 _buildQuery();
             }
