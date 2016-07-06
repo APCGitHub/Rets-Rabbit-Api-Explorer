@@ -169,6 +169,8 @@
                     vm.data.total_results = res.value.length;
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
+
+                    _plotPoints(res.value);
                 }, function(err) {
                     $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
@@ -337,6 +339,18 @@
                             vm.data.query_time++;
                         }
                     }, interval);
+                }
+            }
+
+            function _plotPoints(listings) {
+                for (var i = 0; i < listings.length; i++) {
+                    var listing = listings[i];
+
+                    new google.maps.Marker({
+                        position: {lat: listing.listing.lat, lng: listing.listing.long},
+                        map: gMap,
+                        title: 'Listing: ' + i
+                    });
                 }
             }
 
@@ -533,7 +547,7 @@
                         });
                     }
 
-                    $timeout(function () {
+                    $timeout(function() {
                         _buildQuery();
                     }, 1);
                 });
