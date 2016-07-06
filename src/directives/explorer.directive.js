@@ -98,7 +98,7 @@
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
                 var map = maps[0].map;
-                
+
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
                     _circle(circle);
@@ -123,8 +123,6 @@
                         drawingManager.setOptions({
                             drawingControl: false
                         });
-
-                        
                     }
                 });
 
@@ -458,7 +456,24 @@
 
                 // Setup the click event listeners
                 controlUI.addEventListener('click', function() {
+                    if (vm.data.map.shape.circle) {
+                        vm.data.map.shape.circle.setMap(null);
+                    }
 
+                    if (vm.data.map.shape.rectangle) {
+                        vm.data.map.shape.rectangle.setMap(null);
+                    }
+
+                    if (vm.data.map.shape.polygon) {
+                        vm.data.map.shape.polygon.setMap(null);
+                    }
+
+                    // To show:
+                    if (vm.data.map.drawingManagerControl.getDrawingManager()) {
+                        vm.data.map.drawingManagerControl.getDrawingManager().setOptions({
+                            drawingControl: true
+                        });
+                    }
                 });
             }
         }];
