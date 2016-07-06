@@ -240,7 +240,7 @@
                         if (i + 1 < vm.data.searchForm.filter.length)
                             _q += ' ';
                     }
-
+                    console.log('building the filter query');
                     //add geo
                     if(vm.data.searchForm.geo.within.distance > 0){
                         if(vm.data.searchForm.filter.length)
@@ -326,8 +326,6 @@
 
                 vm.data.searchForm.geo.within.center = pos;
                 vm.data.searchForm.geo.within.distance = radius;
-                console.log('setting circle and building query');
-                console.log(vm.data.searchForm.geo.within);
 
                 _buildQuery();
             }
