@@ -557,6 +557,7 @@
                     }
 
                     $timeout(function() {
+                        vm.data.map.markers = [];
                         _buildQuery();
                     }, 1);
                 });
