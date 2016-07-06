@@ -248,7 +248,8 @@
 
                         _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
 
-                        $scope.$apply();
+                        console.log('did hte distance');
+
                     }
 
                     //intersects
@@ -264,7 +265,7 @@
 
                         _q += '))';
 
-                        $scope.$apply();
+                        console.log('did the intersects');
                     }
                 }
 
