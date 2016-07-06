@@ -93,11 +93,6 @@
                     circleOptions: shapeProps,
                     rectangleOptions: shapeProps
                 };
-
-                //All shapes have the same settings
-                // angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
-                // angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
-                // angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
             });
 
             //Map UI is loaded so hook up event listeners
@@ -119,9 +114,11 @@
                     _rectangle(rectangle);
                 });
 
-                map.addListener('click', function (e){
-                    console.log(e);
-                });
+                var rightControlDiv = document.createElement('div');
+                var rightControl = new RightControl(rightControlDiv, map);
+
+                rightControlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(rightControlDiv);
             });
 
             /* --- Bind Method Handles --- */
@@ -418,6 +415,35 @@
                         }
                     });
                 }
+            }
+
+            function RightControl(controlDiv, map) {
+                var controlUI = document.createElement('div');
+                controlUI.style.backgroundColor = '#fff';
+                controlUI.style.border = '2px solid #fff';
+                controlUI.style.borderRadius = '3px';
+                controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.textAlign = 'center';
+                controlUI.title = 'Click to recenter the map';
+                controlDiv.appendChild(controlUI);
+
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = 'rgb(25,25,25)';
+                controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlText.style.fontSize = '16px';
+                controlText.style.lineHeight = '38px';
+                controlText.style.paddingLeft = '5px';
+                controlText.style.paddingRight = '5px';
+                controlText.innerHTML = 'Center Map';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners: simply set the map to Chicago.
+                controlUI.addEventListener('click', function() {
+                    console.log('hallo');
+                });
             }
         }];
 
