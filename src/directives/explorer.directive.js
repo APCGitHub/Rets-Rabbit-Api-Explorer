@@ -50,8 +50,8 @@
                     top: '',
                     skip: '',
                     geo: {
-                        intersects: null,
-                        within: null
+                        intersects: {points: []},
+                        within: {center: {}, distance: -1}
                     }
                 },
                 map: {
@@ -312,6 +312,16 @@
                 }
             }
 
+            function _setCircle(circle){
+                var radius = circle.getRadius();
+                var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+
+                vm.data.forms.searchForm.geo.within.center = pos;
+                vm.data.forms.searchForm.geo.within.distance = radius;
+
+                console.log(vm.data.forms.searchForm.geo.within);
+            }
+
             function _clearShapes(shape) {
                 switch (shape) {
                     case 1: //circle
@@ -336,24 +346,21 @@
 
                 var isNull = vm.data.map.shape.circle === null ? true : false;
                 vm.data.map.shape.circle = circle;
-                var radius = circle.getRadius();
-                var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
-                console.log(JSON.stringify(pos) + ' ' + radius);
+
+                _setCircle(vm.data.map.shape.circle);
 
                 if (isNull) {
                     //circle radius change
                     vm.data.map.shape.circle.addListener('radius_changed', function() {
                         console.log('radius change');
-                        var radius = vm.data.map.shape.circle.getRadius();
-                        var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
-                        console.log(JSON.stringify(pos) + ' ' + radius);
+
+                        _setCircle(vm.data.map.shape.circle);
                     });
 
                     vm.data.map.shape.circle.addListener('center_changed', function() {
                         console.log('circle center change');
-                        var radius = vm.data.map.shape.circle.getRadius();
-                        var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
-                        console.log(JSON.stringify(pos) + ' ' + radius);
+
+                        _setCircle(vm.data.map.shape.circle);
                     });
                 }
             }
