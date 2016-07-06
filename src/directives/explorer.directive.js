@@ -329,7 +329,7 @@
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.circle, 'drag', function() {
+                    vm.data.map.shape.circle.addListener('center_changed', function() {
                         console.log('circle drag');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
@@ -371,19 +371,21 @@
                         console.log(points);
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.rectangle, 'dragend', function() {
-                        console.log('rectangle drag changed');
-                        var points = [];
-                        var bounds = vm.data.map.shape.rectangle.getBounds();
-                        var NE = bounds.getNorthEast();
-                        var SW = bounds.getSouthWest();
+                    //dragend fires after bounds_changed apparently so we don't need it
 
-                        points.push({ lat: NE.lat(), lng: SW.lng() });
-                        points.push({ lat: NE.lat(), lng: NE.lng() });
-                        points.push({ lat: SW.lat(), lng: NE.lng() });
-                        points.push({ lat: SW.lat(), lng: SW.lng() });
-                        console.log(points);
-                    });
+                    // google.maps.event.addListener(vm.data.map.shape.rectangle, 'dragend', function() {
+                    //     console.log('rectangle drag changed');
+                    //     var points = [];
+                    //     var bounds = vm.data.map.shape.rectangle.getBounds();
+                    //     var NE = bounds.getNorthEast();
+                    //     var SW = bounds.getSouthWest();
+
+                    //     points.push({ lat: NE.lat(), lng: SW.lng() });
+                    //     points.push({ lat: NE.lat(), lng: NE.lng() });
+                    //     points.push({ lat: SW.lat(), lng: NE.lng() });
+                    //     points.push({ lat: SW.lat(), lng: SW.lng() });
+                    //     console.log(points);
+                    // });
                 }
             }
 
