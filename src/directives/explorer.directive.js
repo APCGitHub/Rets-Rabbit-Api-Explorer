@@ -488,6 +488,9 @@
                         vm.data.map.shape.polygon.setMap(null);
                     }
 
+                    vm.data.searchForm.geo.within.distance = -1;
+                    vm.data.searchForm.geo.within.center = {};
+
                     // To show:
                     if (vm.data.map.drawingManagerControl.getDrawingManager()) {
                         vm.data.map.drawingManagerControl.getDrawingManager().setOptions({
