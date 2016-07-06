@@ -16,8 +16,6 @@
                     fillOpacity: 0.5,
                     editable: true,
                     draggable: true,
-                    zIndex: 1,
-                    clickable: false,
                     strokeWeight: 3,
                     geodesic: true
                 };
@@ -93,10 +91,7 @@
                     },
                     polygonOptions: shapeProps,
                     circleOptions: shapeProps,
-                    rectangleOptions: {
-                        editable: true,
-                        draggable: true
-                    }
+                    rectangleOptions: shapeProps
                 };
 
                 //All shapes have the same settings
@@ -373,6 +368,7 @@
                         points.push({ lat: NE.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: SW.lng() });
+                        console.log(points);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.rectangle, 'drag', function() {
@@ -386,6 +382,7 @@
                         points.push({ lat: NE.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: SW.lng() });
+                        console.log(points);
                     });
                 }
             }
