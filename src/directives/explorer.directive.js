@@ -264,7 +264,7 @@
                             return point.lng + ' ' + point.lat;
                         }).join(', ');
 
-                        _q += '))';
+                        _q += ')))';
 
                         console.log('did the intersects');
                     }
