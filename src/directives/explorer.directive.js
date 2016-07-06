@@ -330,7 +330,7 @@
                     });
 
                     vm.data.map.shape.circle.addListener('center_changed', function() {
-                        console.log('circle drag');
+                        console.log('circle center change');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
@@ -402,6 +402,12 @@
                 }
 
                 console.log(points);
+
+                if(isNull){
+                    vm.data.map.shape.polygon.addListener('set_at', function () {
+                        console.log('set at');
+                    });
+                }
             }
         }];
 
