@@ -240,7 +240,7 @@
                         if (i + 1 < vm.data.searchForm.filter.length)
                             _q += ' ';
                     }
-                    console.log('building the filter query');
+                    
                     //add geo
                     if(vm.data.searchForm.geo.within.distance > 0){
                         if(vm.data.searchForm.filter.length)
