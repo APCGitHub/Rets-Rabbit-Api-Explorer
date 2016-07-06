@@ -316,10 +316,10 @@
                 var radius = circle.getRadius();
                 var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
 
-                vm.data.forms.searchForm.geo.within.center = pos;
-                vm.data.forms.searchForm.geo.within.distance = radius;
+                vm.data.searchForm.geo.within.center = pos;
+                vm.data.searchForm.geo.within.distance = radius;
 
-                console.log(vm.data.forms.searchForm.geo.within);
+                console.log(vm.data.searchForm.geo.within);
             }
 
             function _clearShapes(shape) {
