@@ -330,7 +330,7 @@
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.circle, 'drag', function() {
-                        console.log('radius change');
+                        console.log('circle drag');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
@@ -371,7 +371,7 @@
                         console.log(points);
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.rectangle, 'drag', function() {
+                    google.maps.event.addListener(vm.data.map.shape.rectangle, 'dragend', function() {
                         console.log('rectangle drag changed');
                         var points = [];
                         var bounds = vm.data.map.shape.rectangle.getBounds();
