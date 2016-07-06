@@ -247,7 +247,7 @@
                         if (vm.data.searchForm.filter.length)
                             _q += ' and ';
 
-                        _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
+                        _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ')) le ' + vm.data.searchForm.geo.within.distance;
 
                         console.log('did hte distance');
 
