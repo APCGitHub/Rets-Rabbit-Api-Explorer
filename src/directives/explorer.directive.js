@@ -19,7 +19,6 @@
                     strokeWeight: 3,
                     geodesic: true
                 };
-            //drawnItems = new L.FeatureGroup();
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -49,7 +48,11 @@
                     filter: [{ value: '', join: 'and' }],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
-                    skip: ''
+                    skip: '',
+                    geo: {
+                        intersects: null,
+                        within: null
+                    }
                 },
                 map: {
                     //Columbus
@@ -114,6 +117,7 @@
                     _rectangle(rectangle);
                 });
 
+                //watch for any overlay finish to hide controls
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function(e) {
                     var drawingManager = vm.data.map.drawingManagerControl.getDrawingManager();
                     if (e.type != google.maps.drawing.OverlayType.MARKER) {
@@ -126,6 +130,7 @@
                     }
                 });
 
+                //add control to handle removing current shape
                 var rightControlDiv = document.createElement('div');
                 var rightControl = new RightControl(rightControlDiv, map);
 
