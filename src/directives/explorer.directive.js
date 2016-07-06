@@ -322,7 +322,7 @@
 
                 if (isNull) {
                     //circle radius change
-                    vm.data.map.shape.circle.addListener('radius_changed', function () {
+                    vm.data.map.shape.circle.addListener('radius_changed', function() {
                         console.log('radius change');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
@@ -403,18 +403,32 @@
 
                 console.log(points);
 
-                if(isNull){
-                    console.log('was null');
-                    vm.data.map.shape.polygon.addListener('set_at', function () {
-                        console.log('set at');
+                if (isNull) {
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'set_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
+                        console.log(points);
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'set_at', function () {
-                        console.log('set at 2');
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
+
+                        console.log(points);
                     });
 
-                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function () {
-                        console.log('insert at');
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'remove_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
                     });
                 }
             }
