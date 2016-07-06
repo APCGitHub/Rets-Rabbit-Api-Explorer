@@ -409,7 +409,7 @@
                 points.push({ lat: SW.lat(), lng: NE.lng() });
                 points.push({ lat: SW.lat(), lng: SW.lng() });
 
-                console.log(points);
+                _setIntersects(points);
 
                 if (isNull) {
                     google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function() {
@@ -423,7 +423,8 @@
                         points.push({ lat: NE.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: NE.lng() });
                         points.push({ lat: SW.lat(), lng: SW.lng() });
-                        console.log(points);
+
+                        _setIntersects(points);
                     });
                 }
             }
@@ -440,7 +441,7 @@
                     points.push({ lat: coord.lat(), lng: coord.lng() });
                 }
 
-                console.log(points);
+                _setIntersects(points);
 
                 if (isNull) {
                     google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'set_at', function() {
@@ -449,6 +450,7 @@
                             var coord = polygon.getPath().getAt(i);
                             points.push({ lat: coord.lat(), lng: coord.lng() });
                         }
+                        _setIntersects(points);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function() {
@@ -457,6 +459,7 @@
                             var coord = polygon.getPath().getAt(i);
                             points.push({ lat: coord.lat(), lng: coord.lng() });
                         }
+                        _setIntersects(points);
                     });
 
                     google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'remove_at', function() {
@@ -465,6 +468,7 @@
                             var coord = polygon.getPath().getAt(i);
                             points.push({ lat: coord.lat(), lng: coord.lng() });
                         }
+                        _setIntersects(points);
                     });
                 }
             }
