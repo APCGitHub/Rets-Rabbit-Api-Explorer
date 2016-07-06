@@ -18,7 +18,7 @@
                     draggable: true,
                     strokeWeight: 3,
                     geodesic: true
-                };
+                }, gMap = null;
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -100,7 +100,7 @@
 
             //Map UI is loaded so hook up event listeners
             uiGmapIsReady.promise().then(function(maps) {
-                var map = maps[0].map;
+                var gMap = maps[0].map;
 
                 //circle finish
                 google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
@@ -132,10 +132,10 @@
 
                 //add control to handle removing current shape
                 var rightControlDiv = document.createElement('div');
-                var rightControl = new RightControl(rightControlDiv, map);
+                var rightControl = new RightControl(rightControlDiv, gMap);
 
                 rightControlDiv.index = 1;
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(rightControlDiv);
+                gMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(rightControlDiv);
             });
 
             /* --- Bind Method Handles --- */
