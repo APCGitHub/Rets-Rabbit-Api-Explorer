@@ -241,12 +241,26 @@
                             _q += ' ';
                     }
                     
-                    //add geo
+                    //distance
                     if(vm.data.searchForm.geo.within.distance > 0){
                         if(vm.data.searchForm.filter.length)
                             _q += ' and ';
 
                         _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ') le ' + vm.data.searchForm.geo.within.distance;
+                    }
+
+                    //intersects
+                    if(vm.data.searchForm.geo.intersects.points.length > 0){
+                        if(vm.data.searchForm.filter.length)
+                            _q += ' and ';
+
+                        _q += 'geo.distance(location, POLYGON((';
+
+                        _q += vm.data.searchForm.geo.intersects.points.map(function (point){
+                            return point.lng + ' ' + point.lat;
+                        }).join(', ');
+
+                        _q += '))';
                     }
                 }
 
@@ -326,6 +340,12 @@
 
                 vm.data.searchForm.geo.within.center = pos;
                 vm.data.searchForm.geo.within.distance = radius;
+
+                _buildQuery();
+            }
+
+            function _setIntersects(points){
+                vm.data.searchForm.geo.intersects.points = points;
 
                 _buildQuery();
             }
@@ -490,6 +510,7 @@
 
                     vm.data.searchForm.geo.within.distance = -1;
                     vm.data.searchForm.geo.within.center = {};
+                    vm.data.searchForm.geo.intersects.points = [];
 
                     // To show:
                     if (vm.data.map.drawingManagerControl.getDrawingManager()) {
@@ -497,6 +518,8 @@
                             drawingControl: true
                         });
                     }
+
+                    _buildQuery();
                 });
             }
         }];
