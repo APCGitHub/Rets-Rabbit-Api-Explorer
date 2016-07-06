@@ -91,15 +91,15 @@
                             google.maps.drawing.OverlayType.RECTANGLE
                         ]
                     },
-                    polygonOptions: {},
-                    circleOptions: {},
-                    rectangleOptions: {}
+                    polygonOptions: shapeProps,
+                    circleOptions: shapeProps,
+                    rectangleOptions: shapeProps
                 };
 
                 //All shapes have the same settings
-                angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
-                angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
-                angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
+                // angular.extend(vm.data.map.drawingManagerOptions.polygonOptions, shapeProps);
+                // angular.extend(vm.data.map.drawingManagerOptions.circleOptions, shapeProps);
+                // angular.extend(vm.data.map.drawingManagerOptions.rectangleOptions, shapeProps);
             });
 
             //Map UI is loaded so hook up event listeners
