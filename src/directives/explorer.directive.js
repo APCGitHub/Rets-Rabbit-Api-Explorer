@@ -93,7 +93,10 @@
                     },
                     polygonOptions: shapeProps,
                     circleOptions: shapeProps,
-                    rectangleOptions: shapeProps
+                    rectangleOptions: {
+                        editable: true,
+                        draggable: true
+                    }
                 };
 
                 //All shapes have the same settings
@@ -324,15 +327,15 @@
 
                 if (isNull) {
                     //circle radius change
-                    google.maps.event.addListener(vm.data.map.shape.circle, 'radius_changed', function() {
+                    vm.data.map.shape.circle.addListener('radius_changed', function () {
                         console.log('radius change');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
                     });
-                    console.log('before dragned');
-                    google.maps.event.addListener(vm.data.map.shape.circle, 'drag', function() {
-                        console.log('drag change');
+
+                    vm.data.map.shape.circle.addListener('dragend', function () {
+                        console.log('radius change');
                         var radius = vm.data.map.shape.circle.getRadius();
                         var pos = { lat: vm.data.map.shape.circle.center.lat(), lng: vm.data.map.shape.circle.center.lng() };
                         console.log(JSON.stringify(pos) + ' ' + radius);
