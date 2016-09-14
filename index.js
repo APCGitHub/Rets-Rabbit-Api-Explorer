@@ -1,3 +1,3 @@
 require('./dist/rr-explorer-2.min');
 
-modue.exports = 'rr-api-explorer';
+module.exports = 'rr.api.v2.explorer';
