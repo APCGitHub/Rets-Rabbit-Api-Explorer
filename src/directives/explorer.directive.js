@@ -270,8 +270,6 @@
                         }).join(', ');
 
                         _q += ')))';
-
-                        console.log('did the intersects');
                     }
                 }
 
@@ -350,6 +348,22 @@
 
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
+                    var lat = 0, lng = 0;
+
+                    if(listing['listing']){
+                        //this will be deprecated in the future
+                        lat = listing.listing.lat;
+                        lng = listing.listing.long;
+                    } else if (listing['Latitude'] && listing['Longitude']) {
+                        //if MLS fields exist go ahead and use those
+                        lat = listing.Latitude;
+                        lng = listing.Longitude;
+                    } else if(listing.latitude && listing.longitude) {
+                        //we will be flattening the response at some point
+                        //so this will becoming the future use case
+                        lat = listing.latitude;
+                        lng = listing.longitude;
+                    }
 
                     var marker = {
                         id: (new Date()).getTime(),
