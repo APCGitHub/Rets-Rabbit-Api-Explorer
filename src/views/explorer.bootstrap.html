@@ -114,13 +114,20 @@
 	                </div>
 	            </div>
 	        </form>
-	    </div>
-	    <!-- REQUEST -->
-	    <div class="col-sm-6 col-xs-12">
+	        <br><br>
 	        <h3>Request</h3>
 	        <code style="display:block; padding:10px">
 				{{vm.data.fullRequest}}
 			</code>
+	    </div>
+	    <!-- REQUEST -->
+	    <div class="col-sm-6 col-xs-12">
+	        <h3>Interactive Map</h3>
+	        <p>You can further narrow your searches by drawing bounding polygon shapes on the map for areas of interest.</p>
+	        <ui-gmap-google-map center='vm.data.map.center' zoom='vm.data.map.zoom'>
+	        	<ui-gmap-marker ng-repeat="m in vm.data.map.markers track by $index" coords="m.coords" idkey="m.id"></ui-gmap-marker>
+	        	<ui-gmap-drawing-manager options="vm.data.map.drawingManagerOptions" control="vm.data.map.drawingManagerControl" static="'false'"></ui-gmap-drawing-manager>
+	        </ui-gmap-google-map>
 	    </div>
     </div>
     <div class="row">
@@ -131,7 +138,7 @@
     </div>
     <div class="row">
     	<!-- RESULTS -->
-        <div class="col-md-6 col-sm-12" id="rr-query-results">
+        <div class="col-md-10 col-md-offset-1 col-sm-12" id="rr-query-results">
             <h3 class="text-center">
 				Results
 				<span ng-if="vm.data.total_results > -1">:&nbsp;{{vm.data.total_results}}</span>
@@ -147,9 +154,6 @@
             <div ng-if="!vm.data.error && !vm.data.results && !vm.data.searching">
                 <code class="text-center" style="display:block; padding:10px">Click "Search" to hit the Retsrabbit V2 API!</code>
             </div>
-        </div>
-        <div class="col-md-6 col-sm-12" id="rr-map">
-        	map here
         </div>
     </div>
 </div>
