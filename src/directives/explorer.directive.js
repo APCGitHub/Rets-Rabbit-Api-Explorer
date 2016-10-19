@@ -368,8 +368,8 @@
                     var marker = {
                         id: (new Date()).getTime(),
                         coords: {
-                            latitude: parseFloat(listing.listing.lat),
-                            longitude: parseFloat(listing.listing.long)
+                            latitude: parseFloat(lat),
+                            longitude: parseFloat(lng)
                         }
                     };
 
