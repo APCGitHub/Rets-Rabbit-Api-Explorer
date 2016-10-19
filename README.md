@@ -13,6 +13,10 @@ Make sure to import the module
 
 ```javascript
 app.module('app', ['rr.api.v2.explorer']);
+
+or
+
+app.module('app', [require('rr.api.v2.explorer')];
 ```
 
 This directive can either be used as an element or an attribute
