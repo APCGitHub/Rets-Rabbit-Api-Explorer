@@ -7,10 +7,19 @@
     Directive.$inject = ['ApiConfig', 'PropertyFactory'];
 
     function Directive(ApiConfig, PropertyFactory) {
-        var controller = ['$scope', '$interval', '$document', 'PropertyFactory', function($scope, $interval, $document, PropertyFactory) {
+        var controller = ['$scope', '$interval', '$timeout', '$document', 'PropertyFactory', 'uiGmapGoogleMapApi', 'uiGmapIsReady', function($scope, $interval, $timeout, $document, PropertyFactory, uiGmapGoogleMapApi, uiGmapIsReady) {
             var vm = this,
                 promise,
-                someElement = angular.element(document.getElementById('rr-query-results'));
+                someElement = angular.element(document.getElementById('rr-query-results')),
+                shapeProps = {
+                    fillColor: '#ec6952',
+                    fillOpacity: 0.5,
+                    editable: true,
+                    draggable: true,
+                    strokeWeight: 3,
+                    geodesic: true
+                },
+                gMap = null;
 
             //Watch for when the search attribute value changes from the parent scope
             $scope.$watch(angular.bind(this, function() {
@@ -33,13 +42,35 @@
                 }
             });
 
+            //Set the view model data
             vm.data = {
                 searchForm: {
                     select: '',
                     filter: [{ value: '', join: 'and' }],
                     orderby: [{ value: '', direction: 'asc' }],
                     top: '',
-                    skip: ''
+                    skip: '',
+                    geo: {
+                        intersects: { points: [] },
+                        within: { center: {}, distance: -1 }
+                    }
+                },
+                map: {
+                    //Columbus
+                    center: {
+                        latitude: 39.9612,
+                        longitude: -82.9988
+                    },
+                    zoom: 11,
+                    drawingManagerOptions: {},
+                    drawingManagerControl: {},
+                    bounds: {},
+                    shape: {
+                        circle: null,
+                        rectangle: null,
+                        polygon: null
+                    },
+                    markers: []
                 },
                 fullRequest: ApiConfig.apiUrl + 'property?',
                 request: '',
@@ -49,6 +80,65 @@
                 searching: false,
                 query_time: -1
             };
+
+            //Handle map instantiation stuffs
+            uiGmapGoogleMapApi.then(function(maps) {
+                vm.data.map.drawingManagerOptions = {
+                    drawingMode: google.maps.drawing.OverlayType.MARKER,
+                    drawingControl: true,
+                    drawingControlOptions: {
+                        position: google.maps.ControlPosition.TOP_CENTER,
+                        drawingModes: [
+                            google.maps.drawing.OverlayType.CIRCLE,
+                            google.maps.drawing.OverlayType.POLYGON,
+                            google.maps.drawing.OverlayType.RECTANGLE
+                        ]
+                    },
+                    polygonOptions: shapeProps,
+                    circleOptions: shapeProps,
+                    rectangleOptions: shapeProps
+                };
+            });
+
+            //Map UI is loaded so hook up event listeners
+            uiGmapIsReady.promise().then(function(maps) {
+                var gMap = maps[0].map;
+
+                //circle finish
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'circlecomplete', function(circle) {
+                    _circle(circle);
+                });
+
+                //polygon finish
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'polygoncomplete', function(polygon) {
+                    _polygon(polygon);
+                });
+
+                //rectangle finish
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'rectanglecomplete', function(rectangle) {
+                    _rectangle(rectangle);
+                });
+
+                //watch for any overlay finish to hide controls
+                google.maps.event.addListener(vm.data.map.drawingManagerControl.getDrawingManager(), 'overlaycomplete', function(e) {
+                    var drawingManager = vm.data.map.drawingManagerControl.getDrawingManager();
+                    if (e.type != google.maps.drawing.OverlayType.MARKER) {
+                        // Switch back to non-drawing mode after drawing a shape.
+                        drawingManager.setDrawingMode(null);
+                        // To hide:
+                        drawingManager.setOptions({
+                            drawingControl: false
+                        });
+                    }
+                });
+
+                //add control to handle removing current shape
+                var rightControlDiv = document.createElement('div');
+                var rightControl = new RightControl(rightControlDiv, gMap);
+
+                rightControlDiv.index = 1;
+                gMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(rightControlDiv);
+            });
 
             /* --- Bind Method Handles --- */
             vm.doSearch = _search;
@@ -80,6 +170,10 @@
                     vm.data.total_results = res.value.length;
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
+
+                    $timeout(function () {
+                        _plotPoints(res.value);
+                    }, 1);
                 }, function(err) {
                     $document.scrollToElement(someElement, 70, 300);
                     vm.data.query_time = -1;
@@ -134,7 +228,7 @@
                 }
 
                 //filter
-                if (vm.data.searchForm.filter.length) {
+                if (vm.data.searchForm.filter.length || vm.data.searchForm.geo.within.distance > 0) {
                     params[1] = 1;
 
                     if (params[0])
@@ -151,6 +245,31 @@
 
                         if (i + 1 < vm.data.searchForm.filter.length)
                             _q += ' ';
+                    }
+
+                    //distance
+                    if (vm.data.searchForm.geo.within.distance > 0) {
+                        if (vm.data.searchForm.filter.length)
+                            _q += ' and ';
+
+                        _q += 'geo.distance(location, POINT(' + vm.data.searchForm.geo.within.center.lng + ' ' + vm.data.searchForm.geo.within.center.lat + ')) le ' + vm.data.searchForm.geo.within.distance;
+
+                        console.log('did hte distance');
+
+                    }
+
+                    //intersects
+                    if (vm.data.searchForm.geo.intersects.points.length > 0) {
+                        if (vm.data.searchForm.filter.length)
+                            _q += ' and ';
+
+                        _q += 'geo.intersects(location, POLYGON((';
+
+                        _q += vm.data.searchForm.geo.intersects.points.map(function(point) {
+                            return point.lng + ' ' + point.lat;
+                        }).join(', ');
+
+                        _q += ')))';
                     }
                 }
 
@@ -222,6 +341,240 @@
                         }
                     }, interval);
                 }
+            }
+
+            function _plotPoints(listings) {
+                vm.data.map.markers = [];
+
+                for (var i = 0; i < listings.length; i++) {
+                    var listing = listings[i];
+                    var lat = 0, lng = 0;
+
+                    if(listing['listing']){
+                        //this will be deprecated in the future
+                        lat = listing.listing.lat;
+                        lng = listing.listing.long;
+                    } else if (listing['Latitude'] && listing['Longitude']) {
+                        //if MLS fields exist go ahead and use those
+                        lat = listing.Latitude;
+                        lng = listing.Longitude;
+                    } else if(listing.latitude && listing.longitude) {
+                        //we will be flattening the response at some point
+                        //so this will becoming the future use case
+                        lat = listing.latitude;
+                        lng = listing.longitude;
+                    }
+
+                    var marker = {
+                        id: (new Date()).getTime(),
+                        coords: {
+                            latitude: parseFloat(lat),
+                            longitude: parseFloat(lng)
+                        }
+                    };
+
+                    vm.data.map.markers.push(marker);
+                }
+            }
+
+            function _setCircle(circle) {
+                var radius = circle.getRadius();
+                var pos = { lat: circle.center.lat(), lng: circle.center.lng() };
+
+                vm.data.searchForm.geo.within.center = pos;
+                vm.data.searchForm.geo.within.distance = radius / 111195; //force some fancy math
+
+                $timeout(function() {
+                    _buildQuery();
+                }, 1);
+            }
+
+            function _setIntersects(points) {
+                vm.data.searchForm.geo.intersects.points = points;
+
+                $timeout(function() {
+                    _buildQuery();
+                }, 1);
+            }
+
+            function _clearShapes(shape) {
+                switch (shape) {
+                    case 1: //circle
+                        vm.data.map.shape.rectangle = null;
+                        vm.data.map.shape.polygon = null;
+                        break;
+
+                    case 2: //rectangle
+                        vm.data.map.shape.circle = null;
+                        vm.data.map.shape.polygon = null;
+                        break;
+
+                    case 3: //polygon
+                        vm.data.map.shape.circle = null;
+                        vm.data.map.shape.rectangle = null;
+                        break;
+                }
+            }
+
+            function _circle(circle) {
+                _clearShapes(1);
+
+                var isNull = vm.data.map.shape.circle === null ? true : false;
+                vm.data.map.shape.circle = circle;
+
+                _setCircle(vm.data.map.shape.circle);
+
+                if (isNull) {
+                    //circle radius change
+                    vm.data.map.shape.circle.addListener('radius_changed', function() {
+                        console.log('radius change');
+
+                        _setCircle(vm.data.map.shape.circle);
+                    });
+
+                    vm.data.map.shape.circle.addListener('center_changed', function() {
+                        console.log('circle center change');
+
+                        _setCircle(vm.data.map.shape.circle);
+                    });
+                }
+            }
+
+            function _rectangle(rectangle) {
+                _clearShapes(2);
+
+                var isNull = vm.data.map.shape.rectangle === null ? true : false;
+                vm.data.map.shape.rectangle = rectangle;
+
+                var points = [];
+                var bounds = rectangle.getBounds();
+                var NE = bounds.getNorthEast();
+                var SW = bounds.getSouthWest();
+
+                points.push({ lat: NE.lat(), lng: SW.lng() });
+                points.push({ lat: NE.lat(), lng: NE.lng() });
+                points.push({ lat: SW.lat(), lng: NE.lng() });
+                points.push({ lat: SW.lat(), lng: SW.lng() });
+
+                _setIntersects(points);
+
+                if (isNull) {
+                    google.maps.event.addListener(vm.data.map.shape.rectangle, 'bounds_changed', function() {
+                        console.log('bounds changed');
+                        var points = [];
+                        var bounds = vm.data.map.shape.rectangle.getBounds();
+                        var NE = bounds.getNorthEast();
+                        var SW = bounds.getSouthWest();
+
+                        points.push({ lat: NE.lat(), lng: SW.lng() });
+                        points.push({ lat: NE.lat(), lng: NE.lng() });
+                        points.push({ lat: SW.lat(), lng: NE.lng() });
+                        points.push({ lat: SW.lat(), lng: SW.lng() });
+
+                        _setIntersects(points);
+                    });
+                }
+            }
+
+            function _polygon(polygon) {
+                _clearShapes(3);
+
+                var isNull = vm.data.map.shape.polygon === null ? true : false;
+                vm.data.map.shape.polygon = polygon;
+
+                var points = [];
+                for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                    var coord = polygon.getPath().getAt(i);
+                    points.push({ lat: coord.lat(), lng: coord.lng() });
+                }
+
+                _setIntersects(points);
+
+                if (isNull) {
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'set_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
+                        _setIntersects(points);
+                    });
+
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'insert_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
+                        _setIntersects(points);
+                    });
+
+                    google.maps.event.addListener(vm.data.map.shape.polygon.getPath(), 'remove_at', function() {
+                        var points = [];
+                        for (var i = 0; i < polygon.getPath().getLength(); i++) {
+                            var coord = polygon.getPath().getAt(i);
+                            points.push({ lat: coord.lat(), lng: coord.lng() });
+                        }
+                        _setIntersects(points);
+                    });
+                }
+            }
+
+            function RightControl(controlDiv, map) {
+                var controlUI = document.createElement('div');
+                controlUI.style.backgroundColor = '#fff';
+                controlUI.style.border = '2px solid #fff';
+                controlUI.style.borderRadius = '3px';
+                controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.marginRight = '10px';
+                controlUI.style.marginTop = '10px';
+                controlUI.style.textAlign = 'center';
+                controlUI.title = 'Click to delete current selected shape';
+                controlDiv.appendChild(controlUI);
+
+                // Set CSS for the control interior.
+                var controlText = document.createElement('div');
+                controlText.style.color = 'rgb(25,25,25)';
+                controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlText.style.fontSize = '16px';
+                controlText.style.lineHeight = '38px';
+                controlText.style.paddingLeft = '5px';
+                controlText.style.paddingRight = '5px';
+                controlText.innerHTML = 'Delete Shape';
+                controlUI.appendChild(controlText);
+
+                // Setup the click event listeners
+                controlUI.addEventListener('click', function() {
+                    if (vm.data.map.shape.circle) {
+                        vm.data.map.shape.circle.setMap(null);
+                    }
+
+                    if (vm.data.map.shape.rectangle) {
+                        vm.data.map.shape.rectangle.setMap(null);
+                    }
+
+                    if (vm.data.map.shape.polygon) {
+                        vm.data.map.shape.polygon.setMap(null);
+                    }
+
+                    vm.data.searchForm.geo.within.distance = -1;
+                    vm.data.searchForm.geo.within.center = {};
+                    vm.data.searchForm.geo.intersects.points = [];
+
+                    // To show:
+                    if (vm.data.map.drawingManagerControl.getDrawingManager()) {
+                        vm.data.map.drawingManagerControl.getDrawingManager().setOptions({
+                            drawingControl: true
+                        });
+                    }
+
+                    $timeout(function() {
+                        vm.data.map.markers = [];
+                        _buildQuery();
+                    }, 1);
+                });
             }
         }];
 
