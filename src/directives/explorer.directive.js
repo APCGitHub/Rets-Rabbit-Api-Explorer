@@ -4,7 +4,7 @@
         .module('rr.api.v2.explorer.directive.explorer', [])
         .directive('apiExplorer', Directive);
 
-    Directive.$inject = ['ApiConfig', 'PropertyFactory'];
+    Directive.$inject = ['ApiConfig', 'PropertyFactoryV2'];
 
     function Directive(ApiConfig, PropertyFactory) {
         var controller = ['$scope', '$interval', '$timeout', '$document', 'PropertyFactory', 'uiGmapGoogleMapApi', 'uiGmapIsReady', function($scope, $interval, $timeout, $document, PropertyFactory, uiGmapGoogleMapApi, uiGmapIsReady) {
@@ -72,7 +72,7 @@
                     },
                     markers: []
                 },
-                fullRequest: ApiConfig.apiUrl + 'property?',
+                fullRequest: ApiConfig.v2.apiUrl + 'property?',
                 request: '',
                 results: null,
                 total_results: -1,
@@ -314,7 +314,7 @@
                     _q += vm.data.searchForm.skip;
                 }
 
-                vm.data.fullRequest = ApiConfig.apiUrl + 'property?' + _q;
+                vm.data.fullRequest = ApiConfig.v2.apiUrl + 'property?' + _q;
                 vm.data.request = _q;
             }
 
