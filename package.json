@@ -1,6 +1,6 @@
 {
   "name": "rr-api-explorer",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "Angular project showcasing a public api explorer for the Retsrabbit API",
   "main": "index.js",
   "scripts": {
