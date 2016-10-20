@@ -353,6 +353,7 @@
             function _plotPoints(listings) {
                 vm.data.map.markers = [];
 
+                var not_null = 0;
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
                     var lat = 0, lng = 0;
@@ -373,6 +374,7 @@
                     }
 
                     if(lat != 0 && lng != 0) {
+                        not_null++;
                         var marker = {
                             id: (new Date()).getTime(),
                             coords: {
@@ -390,7 +392,7 @@
                 }
 
                 if(vm.data.map.markers.length){
-                    console.log('markers: ' + vm.data.map.markers.length);
+                    console.log('markers: ' + vm.data.map.markers.length + ' not null: ' + not_null);
                     vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
                 }
             }
