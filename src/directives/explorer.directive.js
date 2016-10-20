@@ -390,6 +390,8 @@
 
                 if(vm.data.map.markers.length){
                     $timeout(function () {
+                        console.log(vm.data.map.bounds);
+                        console.log(vm.data.map.control.getGMap());
                         vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
                     }, 1);
                 }
