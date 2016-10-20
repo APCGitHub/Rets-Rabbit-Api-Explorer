@@ -353,16 +353,15 @@
             function _plotPoints(listings) {
                 vm.data.map.markers = [];
 
-                var not_null = 0;
                 for (var i = 0; i < listings.length; i++) {
                     var listing = listings[i];
                     var lat = 0, lng = 0;
 
-                    if(listing['listing']){
+                    if(listing.listing && listing.listing.lat && listing.listing.long){
                         //this will be deprecated in the future
                         lat = listing.listing.lat;
                         lng = listing.listing.long;
-                    } else if (listing['Latitude'] && listing['Longitude']) {
+                    } else if (listing.Latitude && listing.Longitude) {
                         //if MLS fields exist go ahead and use those
                         lat = listing.Latitude;
                         lng = listing.Longitude;
@@ -374,7 +373,6 @@
                     }
 
                     if(lat != 0 && lng != 0) {
-                        not_null++;
                         var marker = {
                             id: (new Date()).getTime(),
                             coords: {
@@ -386,13 +384,11 @@
                         vm.data.map.markers.push(marker);
 
                         var latlng = new google.maps.LatLng(lat, lng);
-                        console.log(latlng);
                         vm.data.map.bounds.extend(latlng);
                     }
                 }
 
                 if(vm.data.map.markers.length){
-                    console.log('markers: ' + vm.data.map.markers.length + ' not null: ' + not_null);
                     vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
                 }
             }
