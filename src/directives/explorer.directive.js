@@ -138,6 +138,10 @@
 
                 rightControlDiv.index = 1;
                 gMap.controls[google.maps.ControlPosition.TOP_RIGHT].push(rightControlDiv);
+
+                $timeout(function() {
+                    vm.data.map.drawingManagerControl.getDrawingManager().setDrawingMode(null);
+                }, 500);
             });
 
             /* --- Bind Method Handles --- */
