@@ -98,6 +98,8 @@
                     circleOptions: shapeProps,
                     rectangleOptions: shapeProps
                 };
+
+                vm.data.map.bounds = new google.maps.LatLngBounds();
             });
 
             //Map UI is loaded so hook up event listeners
@@ -377,7 +379,16 @@
                         }
                     };
 
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    vm.data.map.bounds.extend(latlng);
+
                     vm.data.map.markers.push(marker);
+                }
+
+                if(vm.data.map.markers.length){
+                    $timeout(function () {
+                        gMap.fitBounds(vm.data.map.bounds);
+                    }, 1);
                 }
             }
 
