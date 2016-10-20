@@ -376,24 +376,22 @@
                         var marker = {
                             id: (new Date()).getTime(),
                             coords: {
-                                latitude: parseFloat(lat),
-                                longitude: parseFloat(lng)
+                                latitude: lat,
+                                longitude: lng
                             }
                         };
 
                         vm.data.map.markers.push(marker);
 
                         var latlng = new google.maps.LatLng(lat, lng);
+                        console.log(latlng);
                         vm.data.map.bounds.extend(latlng);
                     }
                 }
 
                 if(vm.data.map.markers.length){
-                    $timeout(function () {
-                        console.log(vm.data.map.bounds);
-                        console.log(vm.data.map.control.getGMap());
-                        vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
-                    }, 1);
+                    console.log('markers: ' + vm.data.map.markers.length);
+                    vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
                 }
             }
 
