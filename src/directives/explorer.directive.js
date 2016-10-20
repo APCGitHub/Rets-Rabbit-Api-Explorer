@@ -65,6 +65,7 @@
                     drawingManagerOptions: {},
                     drawingManagerControl: {},
                     bounds: {},
+                    control: {},
                     shape: {
                         circle: null,
                         rectangle: null,
@@ -389,7 +390,7 @@
 
                 if(vm.data.map.markers.length){
                     $timeout(function () {
-                        gMap.fitBounds(vm.data.map.bounds);
+                        vm.data.map.control.getGMap().fitBounds(vm.data.map.bounds);
                     }, 1);
                 }
             }

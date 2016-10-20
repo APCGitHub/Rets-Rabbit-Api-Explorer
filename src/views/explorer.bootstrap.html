@@ -124,7 +124,7 @@
 	    <div class="col-sm-6 col-xs-12">
 	        <h3>Interactive Map</h3>
 	        <p>You can further narrow your searches by drawing bounding polygon shapes on the map for areas of interest.</p>
-	        <ui-gmap-google-map center='vm.data.map.center' zoom='vm.data.map.zoom'>
+	        <ui-gmap-google-map control="vm.data.map.control" center='vm.data.map.center' zoom='vm.data.map.zoom'>
 	        	<ui-gmap-marker ng-repeat="m in vm.data.map.markers" coords="m.coords" idkey="m.id">
 					<ui-gmap-window coords="m.coords" show="false">
 						<p>
