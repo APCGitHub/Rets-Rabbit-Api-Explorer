@@ -371,18 +371,20 @@
                         lng = listing.long;
                     }
 
-                    var marker = {
-                        id: (new Date()).getTime(),
-                        coords: {
-                            latitude: parseFloat(lat),
-                            longitude: parseFloat(lng)
-                        }
-                    };
+                    if(lat != 0 && lng != 0) {
+                        var marker = {
+                            id: (new Date()).getTime(),
+                            coords: {
+                                latitude: parseFloat(lat),
+                                longitude: parseFloat(lng)
+                            }
+                        };
 
-                    var latlng = new google.maps.LatLng(lat, lng);
-                    vm.data.map.bounds.extend(latlng);
+                        vm.data.map.markers.push(marker);
 
-                    vm.data.map.markers.push(marker);
+                        var latlng = new google.maps.LatLng(lat, lng);
+                        vm.data.map.bounds.extend(latlng);
+                    }
                 }
 
                 if(vm.data.map.markers.length){
