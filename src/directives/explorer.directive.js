@@ -228,7 +228,7 @@
                 }
 
                 //filter
-                if (vm.data.searchForm.filter.length || vm.data.searchForm.geo.within.distance > 0) {
+                if (vm.data.searchForm.filter.length || vm.data.searchForm.geo.within.distance > 0 || vm.data.searchForm.geo.intersects.points.length) {
                     params[1] = 1;
 
                     if (params[0])
