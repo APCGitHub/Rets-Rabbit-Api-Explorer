@@ -174,12 +174,12 @@
                     //vm.data.query_time = end.getTime() - start.getTime();
                     vm.data.error = null;
                     vm.data.results = res;
-                    vm.data.total_results = res.value.length;
+                    vm.data.total_results = res.data.value.length;
                     vm.data.searching = false;
                     _startCount(end.getTime() - start.getTime());
 
                     $timeout(function () {
-                        _plotPoints(res.value);
+                        _plotPoints(res.data.value);
                     }, 1);
                 }, function(err) {
                     $document.scrollToElement(someElement, 70, 300);
