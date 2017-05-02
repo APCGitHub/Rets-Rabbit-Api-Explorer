@@ -15,10 +15,10 @@
     "realty"
   ],
   "dependencies": {
-    "rets-rabbit-angular": "~1.1.7",
+    "rets-rabbit-angular": "~1.1.11",
     "angular-scroll": "^1.0.0",
-    "angular-animate": "^1.5.11",
-    "angular-google-maps": "^2.3.3"
+    "angular-google-maps": "^2.3.3",
+    "angular-animate": "^1.6.4"
   },
   "license": "ISC",
   "homepage": "",
