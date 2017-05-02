@@ -17,7 +17,7 @@
   "dependencies": {
     "rets-rabbit-angular": "~1.1.7",
     "angular-scroll": "^1.0.0",
-    "angular-animate": "^1.5.7",
+    "angular-animate": "^1.6.4",
     "angular-google-maps": "^2.3.3"
   },
   "license": "ISC",
